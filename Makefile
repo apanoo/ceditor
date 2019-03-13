@@ -31,7 +31,7 @@ OBJS=$(SRCS:.cpp=.o)
 .PHONY: build-cpp
 build-cpp: cf $(OBJS)
 	$(CC) -std=c++11 -g -o $(EXEC) $(OBJS) $(DYL) $(LIBS) $(DYLCommon)
-	rm -rf $(PWD)/cpp/*.o
+	rm -rf $(PWD)/core/*.o
 
 # auto build *.cpp to *.co one by one
 .cpp.o:
