@@ -1,5 +1,6 @@
 #include "util.h"
 #include "window.hpp"
+#include "shader.hpp"
 
 Window *win;
 
@@ -16,6 +17,8 @@ void main_loop() { loop(); }
 int main()
 {
     win = new Window("ceditor", 640, 480);
+    // BUG : must new shader after window created.
+    Shader shader("assets/shader/bc.vert", "assets/shader/bc.frag");
 
 #ifdef EMSCRIPTEN
     loop = [&]

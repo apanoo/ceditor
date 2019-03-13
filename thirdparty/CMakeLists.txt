@@ -16,6 +16,7 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/glad)
 # glm
 add_subdirectory(${PROJECT_SOURCE_DIR}/glm)
 set( BUILD_STATIC_LIBS OFF CACHE BOOL "Build the static glm library" )
+set( GLM_TEST_ENABLE OFF CACHE BOOL "Build unit tests" )
 
 
 # change output dir

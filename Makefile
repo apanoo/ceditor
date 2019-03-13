@@ -23,7 +23,7 @@ GLMP=$(PWD)/thirdparty/glm
 # build cpp to js
 .PHONY: build-js
 build-js: cf
-	$(CCJS) $(SRCS) -std=c++11 -s WASM=1 -s USE_SDL=2 -O3 -o $(EXECJS) -DEMSCRIPTEN $(INC) $(DYLCommon) $(LIBS)
+	$(CCJS) $(SRCS) -std=c++11 -s WASM=1 -s USE_SDL=2 -O3 --preload-file assets -o $(EXECJS) -DEMSCRIPTEN $(INC) $(DYLCommon) $(LIBS)
 
 OBJS=$(SRCS:.cpp=.o)
 # build binary from *.o
