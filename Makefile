@@ -7,26 +7,30 @@ EXECJS=$(BINDIR)/index.js
 EXEC=$(BINDIR)/apg
 INC= -I$(PWD)/thirdparty/SDL2/include \
 	 -I$(PWD)/thirdparty/glad/include \
+	 -I$(PWD)/thirdparty/glm \
 	 -I$(PWD)/core
 DYL= -lSDL2-2.0 \
 	 -lglad
+DYLCommon= -lglm_shared
 LIBS= -L$(PWD)/lib
 # SRCS=cpp/main.cpp
 SRCS=core/main.cpp \
 	#  engine/engine.cpp \
 	#  engine/window.cpp
 
+GLMP=$(PWD)/thirdparty/glm
+
 # build cpp to js
 .PHONY: build-js
 build-js: cf
-	$(CCJS) $(SRCS) -std=c++11 -s WASM=1 -s USE_SDL=2 -O3 -o $(EXECJS) -DEMSCRIPTEN $(INC)
+	$(CCJS) $(SRCS) -std=c++11 -s WASM=1 -s USE_SDL=2 -O3 -o $(EXECJS) -DEMSCRIPTEN $(INC) $(DYLCommon) $(LIBS)
 
 OBJS=$(SRCS:.cpp=.o)
 # build binary from *.o
 # binary needs all *.o files from $(OBJS)
 .PHONY: build-cpp
 build-cpp: cf $(OBJS)
-	$(CC) -std=c++11 -g -o $(EXEC) $(OBJS) ${DYL} ${LIBS}
+	$(CC) -std=c++11 -g -o $(EXEC) $(OBJS) $(DYL) $(LIBS) $(DYLCommon)
 	rm -rf $(PWD)/cpp/*.o
 
 # auto build *.cpp to *.co one by one
@@ -50,6 +54,7 @@ dep: cfd
 .PHONY: cfd
 cfd:
 	@if [ ! -d $(DEPBUILD) ]; then mkdir -p $(DEPBUILD); fi;
+	@if [ ! -d $(GLMP) ]; then git submodule init && git submodule update; fi;
 
 .PHONY: run
 run: build-cpp

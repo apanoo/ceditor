@@ -13,8 +13,13 @@ set( EXTRA_LIBS ${EXTRA_LIBS} SDL2 )
 # glad
 add_subdirectory(${PROJECT_SOURCE_DIR}/glad)
 
+# glm
+add_subdirectory(${PROJECT_SOURCE_DIR}/glm)
+set( BUILD_STATIC_LIBS OFF CACHE BOOL "Build the static glm library" )
+
+
 # change output dir
-set_target_properties( SDL2 glad
+set_target_properties( SDL2 glad glm_shared
     PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/../lib"
     LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/../lib"
