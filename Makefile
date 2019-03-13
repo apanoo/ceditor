@@ -2,7 +2,7 @@
 CCJS=emcc
 CC=clang++
 BINDIR=bin
-DEPBUILD=thirdparty/build
+DEPBUILD=$(PWD)/thirdparty/build
 EXECJS=$(BINDIR)/index.js
 EXEC=$(BINDIR)/apg
 INC= -I$(PWD)/thirdparty/SDL2/include \
