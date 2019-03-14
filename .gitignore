@@ -3,5 +3,4 @@ bin
 lib
 obj
 thirdparty/build
-tools/wes
 *.o
