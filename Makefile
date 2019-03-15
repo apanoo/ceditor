@@ -56,9 +56,9 @@ dep: cfd
 .PHONY: cfd
 cfd:
 	@if [ ! -d $(DEPBUILD) ]; then mkdir -p $(DEPBUILD); fi;
-	@if [ ! -d $(GLMP) ]; then git submodule init && git submodule update; fi;
-	@if [ ! -d $(SDLP) ]; then git submodule init && git submodule update; fi;
-	@if [ ! -d $(GLADP) ]; then git submodule init && git submodule update; fi;
+	@if [ ! -f $(GLMP)/CMakeLists.txt ]; then rm -rf $(GLMP) && git submodule init && git submodule update; fi;
+	@if [ ! -f $(SDLP)/CMakeLists.txt ]; then rm -rf $(SDLP) && git submodule init && git submodule update; fi;
+	@if [ ! -f $(GLADP)/CMakeLists.txt ]; then rm -rf $(GLADP) && git submodule init && git submodule update; fi;
 
 .PHONY: run
 run: build-cpp
