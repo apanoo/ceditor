@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include <string>
+#include <string.h> // memset
 
 class FileUtils {
 public:
