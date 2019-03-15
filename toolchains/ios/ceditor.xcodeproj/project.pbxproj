@@ -160,7 +160,7 @@
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* Rectangles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rectangles.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* ceditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ceditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA30DE961BBF59D9009C397F /* Happy-TV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Happy-TV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -346,7 +346,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* Rectangles.app */,
+				1D6058910D05DD3D006BFB54 /* ceditor.app */,
 				FD15FCB20E086866003BDF25 /* Happy.app */,
 				FD5F9BE40E0DEBEA008E885B /* Accel.app */,
 				FDC202EE0E107B1200ABAC90 /* Touch.app */,
@@ -475,7 +475,7 @@
 			);
 			name = Rectangles;
 			productName = SDLiPodTest;
-			productReference = 1D6058910D05DD3D006BFB54 /* Rectangles.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* ceditor.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FA30DE951BBF59D9009C397F /* Happy-TV */ = {
@@ -837,8 +837,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.Rectangles;
-				PRODUCT_NAME = Rectangles;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.apanoo.ceditor;
+				PRODUCT_NAME = ceditor;
 			};
 			name = Debug;
 		};
@@ -846,8 +846,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.Rectangles;
-				PRODUCT_NAME = Rectangles;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.apanoo.ceditor;
+				PRODUCT_NAME = ceditor;
 			};
 			name = Release;
 		};
