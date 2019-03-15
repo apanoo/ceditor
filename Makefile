@@ -66,6 +66,7 @@ run: build-cpp
 
 .PHONY: run-js
 run-js: build-js build-wes
+	cp index.html $(BINDIR)
 	$(PWD)/bin/wes
 
 .PHONY: build-wes
