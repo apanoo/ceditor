@@ -2,15 +2,15 @@
 
 Web assembly OpenGL
 
-## make dep
+## 1. make dep
 
 Install dependencies
 
-## make run-cpp
+## 2. make run-cpp
 
 Run engine desktop
 
-## make run-js
+## or. make run-js
 
 - Listening localhost:8080
 - Visit localhost:8080
