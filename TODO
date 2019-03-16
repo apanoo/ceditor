@@ -4,3 +4,8 @@
 4. render core/* to android
 5. render core/* to iOS
 6. fix make flow after 1-5
+7. complete OpenGL renderer
+8. fix cross platform renderer
+9. model support
+10. abstract for electron ui layer
+11. electron ui part
