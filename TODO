@@ -1,7 +1,7 @@
 1. support cmake on Mac
 2. support cmake on Linux
 3. support cmake on Windows
-4. render core/* to android
+4. render core/* to android [done]
 5. render core/* to iOS
 6. fix make flow after 1-5
 7. complete OpenGL renderer
