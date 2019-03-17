@@ -25,10 +25,10 @@ public:
         glUseProgram(0);
     }
 private:
-/**
- *  internal load shader from file
- *  and compile & link
- **/
+    /**
+     *  internal load shader from file
+     *  and compile & link
+     **/
     GLuint load() {
         GLuint program = glCreateProgram();
 

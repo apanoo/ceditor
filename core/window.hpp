@@ -24,8 +24,11 @@ public:
         _title(title), _width(w), _height(h), _startx(sx), _starty(sy), _quit(false), _bgblack(true) {
         init();
         flags = SDL_WINDOW_OPENGL;
-#if defined(__ANDROID__)
+#if defined(__ANDROID__) || defined(__IPHONEOS__)
         flags |= SDL_WINDOW_FULLSCREEN;
+#endif
+#if defined(__IPHONEOS__)
+        flags |= SDL_WINDOW_ALLOW_HIGHDPI;
 #endif
     }
 
