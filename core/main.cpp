@@ -15,7 +15,8 @@ void main_loop() { loop(); }
 // application init
 // TODO application abstract
 int init() {
-#ifdef __ANDROID__
+
+#if defined(__ANDROID__) || defined(__IPHONEOS__)
     win = new Window("ceditor", 480, 640);
 #else
     win = new Window("ceditor", 640, 480);

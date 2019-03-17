@@ -106,8 +106,9 @@ private:
             std::cout << "Could not create the OpenGL context" << std::endl;
         }
 
-#ifndef __ANDROID__
-        // Load OpenGL functions glad SDL
+#if defined(__ANDROID__) || defined(EMSCRIPTEN) || defined(__IPHONEOS__)
+        // no glad on android/web/iOS
+#else
         gladLoadGLLoader(SDL_GL_GetProcAddress);
 #endif
 
