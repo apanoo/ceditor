@@ -43,7 +43,7 @@ add_definitions(-DSDL_JOYSTICK=0)
 # Sources (relative to the project root dir).
 #
 set(projectSources
-  core/main.c
+  core/main.cpp
 
   # Use this instead for an opengl example
   #source/main_opengl.c

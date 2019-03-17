@@ -1,6 +1,5 @@
 #include "util.h"
 #include "window.hpp"
-#include "shader.hpp"
 
 Window *win;
 
@@ -13,25 +12,46 @@ std::function<void()> loop;
 void main_loop() { loop(); }
 #endif // EMSCRIPTEN
 
-
-int main()
-{
+// application init
+// TODO application abstract
+int init() {
+#ifdef __ANDROID__
+    win = new Window("ceditor", 480, 640);
+#else
     win = new Window("ceditor", 640, 480);
-    // BUG : must new shader after window created.
-    Shader shader("assets/shader/bc.vert", "assets/shader/bc.frag");
+#endif 
+    return 1;
+}
 
+// application exit
+void release() {
+    delete(win);
+    SDL_Quit();
+    SDL_Log("All done.");
+}
+
+
+int main(int argc, char* argv[]) {
+    if (!init()) {
+        SDL_Log("Initialization failed.");
+        release();
+        return 1;
+    }
 #ifdef EMSCRIPTEN
     loop = [&]
     {
 #else
-while(!win->isQuit()) {
-#endif // EMSCRIPTEN
-    win->update();
+    while (!win->isQuit()) {
+#endif
+        win->update();
 #ifdef EMSCRIPTEN
     };
     emscripten_set_main_loop(main_loop, 0, true);
 #else
-}
+    }
 #endif
-    return EXIT_SUCCESS;
+
+    // call release
+    release();
+    return 0;
 }

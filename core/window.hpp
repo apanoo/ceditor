@@ -23,6 +23,10 @@ public:
     Window(const std::string &title, int w, int h, int sx = 0, int sy = 0) :
         _title(title), _width(w), _height(h), _startx(sx), _starty(sy), _quit(false), _bgblack(true) {
         init();
+        flags = SDL_WINDOW_OPENGL;
+#if defined(__ANDROID__)
+        flags |= SDL_WINDOW_FULLSCREEN;
+#endif
     }
 
     ~Window() {
@@ -92,7 +96,7 @@ private:
                 _starty != 0 ? _starty : SDL_WINDOWPOS_CENTERED,
                 _width,
                 _height,
-                SDL_WINDOW_OPENGL);
+                flags);
 
         if(_sdl_window == NULL) {
             std::cout << "Could not create window" << std::endl;
@@ -102,8 +106,11 @@ private:
             std::cout << "Could not create the OpenGL context" << std::endl;
         }
 
+#ifndef __ANDROID__
         // Load OpenGL functions glad SDL
         gladLoadGLLoader(SDL_GL_GetProcAddress);
+#endif
+
         // V-Sync
         SDL_GL_SetSwapInterval(1);
 
@@ -189,4 +196,6 @@ private:
     bool _quit;
     bool _bgblack;
     Sprite sp;
+
+    Uint32 flags;
 };

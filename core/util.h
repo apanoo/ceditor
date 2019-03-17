@@ -4,14 +4,21 @@
 #include <iostream>
 #include <SDL.h>
 
+// android or wasm
+#if defined(__ANDROID__) || defined(EMSCRIPTEN)
+   #include <SDL_opengles2.h>
+#endif
+
+// wasm
 #ifdef EMSCRIPTEN
 #include <functional>
 #include <emscripten.h>
 #define GL_GLEXT_PROTOTYPES 1
-#include <SDL_opengles2.h>
 #else
-// glad
+#ifndef __ANDROID__
+// glad on Linux/Win/Mac
 #include <glad/glad.h>
+#endif
 #endif // EMEMSCRIPTEN
 
 /// simple helper

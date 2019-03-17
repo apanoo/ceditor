@@ -16,7 +16,7 @@ android {
             cmake {
                 // Add any cmake options here.
 
-                //cppFlags "-std=c++11 -frtti -fexceptions"
+                cppFlags "-std=c++11 -frtti -fexceptions"
                 //arguments "-DANDROID_TOOLCHAIN=gcc"
             }
         }
