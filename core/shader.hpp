@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <iostream>
 #include "util.h"
 #include "file.hpp"
 
@@ -53,7 +54,7 @@ private:
             glGetShaderInfoLog(vertex, length, &length, &error[0]);
             // delete
             glDeleteShader(vertex);
-            __stderr(&error[0]);
+            std::cout << "Vertex: " << &error[0] << std::endl;
             return 0;
         }
 
@@ -68,7 +69,7 @@ private:
             glGetShaderInfoLog(fragment, length, &length, &error[0]);
             // delete
             glDeleteShader(fragment);
-            __stderr(&error[0]);
+            std::cout << "Fragment: " << &error[0] << std::endl;
             return 0;
         }
         // attach shader

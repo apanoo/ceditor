@@ -1,23 +1,20 @@
 #include <vector>
 #include <string>
 #include "util.h"
+#include "shader.hpp"
 #include "sprite.hpp"
 
-// Shader sources
-const GLchar* vertexSource =
-    "attribute vec4 position;                     \n"
-    "void main()                                  \n"
-    "{                                            \n"
-    "  gl_Position = vec4(position.xyz, 1.0);     \n"
-    "}                                            \n";
-const GLchar* fragmentSource =
-    "void main()                                  \n"
-    "{                                            \n"
-    "  gl_FragColor[0] = gl_FragCoord.x/640.0;    \n"
-    "  gl_FragColor[1] = gl_FragCoord.y/480.0;    \n"
-    "  gl_FragColor[2] = 0.5;                     \n"
-    "}                                            \n";
-GLfloat vertices[] = {0.0f, 0.5f, 0.5f, -0.5f, -0.5f, -0.5f};
+Shader *shader;
+GLfloat vertices[] = {
+    -0.5f, -0.5f, 0.0f,
+    -0.5f,  0.5f, 0.0f,
+     0.5f,  0.5f, 0.0f,
+     0.5f,  0.5f, 0.0f,
+     0.5f, -0.5f, 0.0f,
+    -0.5f, -0.5f, 0.0f,
+};
+
+GLuint vbo;
 
 class Window {
 public:
@@ -32,6 +29,16 @@ public:
 #endif
         // init window after init flags
         init();
+
+        // shader test
+        shader = new Shader("assets/shader/bc.vert", "assets/shader/bc.frag");
+        glGenBuffers(1, &vbo);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
+        glEnableVertexAttribArray(0);
+        // enable shader
+        shader->enable();
     }
 
     ~Window() {
@@ -54,13 +61,6 @@ public:
             }
         }
 
-        // update shader 
-        // move a vertex
-        const uint32_t milliseconds_since_start = SDL_GetTicks();
-        const uint32_t milliseconds_per_loop = 3000;
-        vertices[0] = ( milliseconds_since_start % milliseconds_per_loop ) / float(milliseconds_per_loop) - 0.5f;
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
         // Clear the screen
         if( _bgblack )
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -70,15 +70,14 @@ public:
 
         GLenum error = glGetError();
         if ( error != GL_NO_ERROR ) {
-            // TODO logger...
             std::cout << "OpenGL error: " << error << std::endl;
             // exit(-1);
         }
+        render();
+    }
 
-        // sp.draw();
-
-        // Draw a triangle from the 3 vertices
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+    void render() {
+        glDrawArrays(GL_TRIANGLES, 0, 6);
     }
 
 private:
@@ -117,6 +116,8 @@ private:
         gladLoadGLLoader(SDL_GL_GetProcAddress);
 #endif
 
+        std::cout << "OpenGL :" << glGetString( GL_VERSION ) << std::endl;
+
         // V-Sync
         SDL_GL_SetSwapInterval(1);
 
@@ -125,70 +126,7 @@ private:
         SDL_GL_GetDrawableSize(_sdl_window, &vpWidth, &vpHeight);
         glViewport(0, 0, vpWidth, vpHeight);
 
-        // sp.init(-1.0f, -1.0f, 1.0f, 1.0f);
     #endif
-
-    // shader 
-    // Create a Vertex Buffer Object and copy the vertex data to it
-    GLuint vbo;
-    glGenBuffers(1, &vbo);
-
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // Create and compile the vertex shader
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexSource, nullptr);
-    glCompileShader(vertexShader);
-
-    // get compile result
-    GLint result;
-    glGetShaderiv( vertexShader, GL_COMPILE_STATUS, &result );
-    if ( result == GL_FALSE ) {
-        GLint length;
-        glGetShaderiv( vertexShader, GL_INFO_LOG_LENGTH, &length );
-        std::vector<char> error(length);
-        // get compile errors
-        glGetShaderInfoLog( vertexShader, length, &length, &error[ 0 ] );
-        //aplog::logerr( "Error to compile vert shader!", &error[ 0 ] );
-		std::cout << "Error to compile vert shader: " << &error[0] << std::endl;
-        exit(-1);
-    }
-
-    // Create and compile the fragment shader
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentSource, nullptr);
-    glCompileShader(fragmentShader);
-
-    glGetShaderiv( fragmentShader, GL_COMPILE_STATUS, &result );
-    if ( result == GL_FALSE ) {
-        GLint length;
-        glGetShaderiv( fragmentShader, GL_INFO_LOG_LENGTH, &length );
-        std::vector< char > error( length );
-        // get compile errors
-        glGetShaderInfoLog( fragmentShader, length, &length, &error[ 0 ] );
-        //aplog::logerr( "Error to compile frag shader!", &error[ 0 ] );
-		std::cout << "Error to compile frag shader: " << &error[0] << std::endl;
-        glDeleteShader( fragmentShader );
-        exit(-1);
-    }
-
-    // Link the vertex and fragment shader into a shader program
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-
-    // Delete shader data
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
-    glLinkProgram(shaderProgram);
-    glUseProgram(shaderProgram);
-
-    // Specify the layout of the vertex data
-    GLint posAttrib = glGetAttribLocation(shaderProgram, "position");
-    glEnableVertexAttribArray(posAttrib);
-    glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
     }
 private:
     SDL_Window *_sdl_window;
@@ -201,7 +139,6 @@ private:
     int _starty;
     bool _quit;
     bool _bgblack;
-    Sprite sp;
 
     Uint32 flags;
 };
