@@ -1,4 +1,5 @@
 #include <vector>
+#include <string>
 #include "util.h"
 #include "sprite.hpp"
 
@@ -22,7 +23,6 @@ class Window {
 public:
     Window(const std::string &title, int w, int h, int sx = 0, int sy = 0) :
         _title(title), _width(w), _height(h), _startx(sx), _starty(sy), _quit(false), _bgblack(true) {
-        init();
         flags = SDL_WINDOW_OPENGL;
 #if defined(__ANDROID__) || defined(__IPHONEOS__)
         flags |= SDL_WINDOW_FULLSCREEN;
@@ -30,6 +30,8 @@ public:
 #if defined(__IPHONEOS__)
         flags |= SDL_WINDOW_ALLOW_HIGHDPI;
 #endif
+        // init window after init flags
+        init();
     }
 
     ~Window() {

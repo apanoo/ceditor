@@ -30,10 +30,14 @@ build-js: cf
 OBJS=$(SRCS:.cpp=.o)
 # build binary from *.o
 # binary needs all *.o files from $(OBJS)
-.PHONY: build-cpp
-build-cpp: cf $(OBJS)
+.PHONY: build-internal
+build-internal: cf $(OBJS)
 	$(CC) -std=c++11 -g -o $(EXEC) $(OBJS) $(DYL) $(LIBS) $(DYLCommon)
-	rm -rf $(PWD)/core/*.o
+
+.PHONY: build-cpp
+build-cpp:
+	@rm -rf core/*.o
+	@make build-internal
 
 # auto build *.cpp to *.co one by one
 .cpp.o:
