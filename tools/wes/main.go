@@ -7,6 +7,8 @@ import (
 
 func main() {
 	http.Handle("/", http.FileServer(http.Dir("./bin")))
-	fmt.Println("Listening localhost:8080")
-    http.ListenAndServe(":8080", nil)
+	fmt.Println("Listening localhost:8081")
+    if err := http.ListenAndServe(":8081", nil); err != nil {
+		panic(err)
+	}
 }
