@@ -14,6 +14,7 @@ public:
 #endif
     }
 private:
+    // common read file
     static std::string read_noan(const char* filename) {
         FILE* file = fopen( filename, "rt" );
         if (file == NULL) {
@@ -33,6 +34,7 @@ private:
         return result;
     }
 
+    // android read file 
     static std::string read_an(const char* filename) {
         SDL_RWops *rw = SDL_RWFromFile(filename, "rt");
         if (rw == NULL) return NULL;
@@ -55,6 +57,7 @@ private:
 
         res[nb_read_total] = '\0';
         std::string result(res);
+        free(res);
 
         return result;
     }
