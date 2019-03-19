@@ -3,19 +3,19 @@
 #include "util.h"
 #include "shader.hpp"
 #include "sprite.hpp"
+#include "math.hpp"
+#include "vertex.hpp"
 
 Shader *shader;
-Shader *s;
-GLfloat vertices[] = {
-    -0.5f, -0.5f, 0.0f,
-    -0.5f,  0.5f, 0.0f,
-     0.5f,  0.5f, 0.0f,
-     0.5f,  0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f,
-};
+Vertex vertices[3];
 
 GLuint vbo;
+
+GLint lp ;
+GLint cp ;
+GLint mp ;
+GLint vp ;
+GLint pp ;
 
 class Window {
 public:
@@ -30,19 +30,50 @@ public:
 #endif
         // init window after init flags
         init();
+        vertices[0].position[0] = 0;
+        vertices[0].position[1] = 0;
+        vertices[0].position[2] = -100.0f;
+        vertices[0].color[0] = 1.0f;
+        vertices[0].color[1] = 1.0f;
+        vertices[0].color[2] = 1.0f;
+        vertices[0].color[3] = 1.0f;
+
+        vertices[1].position[0] = 10;
+        vertices[1].position[1] = 0;
+        vertices[1].position[2] = -100.0f;
+        vertices[1].color[0] = 1.0f;
+        vertices[1].color[1] = 1.0f;
+        vertices[1].color[2] = 1.0f;
+        vertices[1].color[3] = 1.0f;
+
+        vertices[2].position[0] = 0;
+        vertices[2].position[1] = 10;
+        vertices[2].position[2] = -100.0f;
+        vertices[2].color[0] = 1.0f;
+        vertices[2].color[1] = 1.0f;
+        vertices[2].color[2] = 1.0f;
+        vertices[2].color[3] = 1.0f;
 
         // test shader
-        s = new Shader("assets/shader/sample.vert", "assets/shader/sample.frag");
+        shader = new Shader("assets/shader/sample.vert", "assets/shader/sample.frag");
 
-        // shader test
-        shader = new Shader("assets/shader/bc.vert", "assets/shader/bc.frag");
         glGenBuffers(1, &vbo);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
-        glEnableVertexAttribArray(0);
-        // enable shader
-        shader->enable();
+        glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 3, vertices, GL_STATIC_DRAW);
+
+        lp = shader->getAttribLocation("position");
+        cp = shader->getAttribLocation("color");
+        mp = shader->getUniformLocation("M");
+        vp = shader->getUniformLocation("V");
+        pp = shader->getUniformLocation("P");
+
+        SDL_Log("lp: %d, cp: %d, mp: %d, vp: %d, pp: %d", lp, cp, mp, vp, pp);
+
+        glEnableVertexAttribArray(lp);
+        glVertexAttribPointer(lp, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+
+        glEnableVertexAttribArray(cp);
+        glVertexAttribPointer(cp, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float)*3));
     }
 
     ~Window() {
@@ -81,7 +112,14 @@ public:
     }
 
     void render() {
+        shader->enable();
+
+        glUniformMatrix4fv(mp, 1, GL_FALSE, glm::value_ptr(glm::mat4(1)));
+        glUniformMatrix4fv(vp, 1, GL_FALSE, glm::value_ptr(glm::mat4(1)));
+        glUniformMatrix4fv(pp, 1, GL_FALSE, glm::value_ptr(glm::perspective(45.0f, 680.0f / 480.0f, 0.1f, 1000.0f)));
+
         glDrawArrays(GL_TRIANGLES, 0, 6);
+        shader->disable();
     }
 
 private:

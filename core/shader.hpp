@@ -18,6 +18,14 @@ public:
         glDeleteProgram(_shader);
     }
 
+    GLuint getAttribLocation(const char* name) {
+        return glGetAttribLocation(_shader, name);
+    }
+
+    GLuint getUniformLocation(const char* name) {
+        return glGetUniformLocation(_shader, name);
+    }
+
     void enable() const {
         glUseProgram(_shader);
     }
