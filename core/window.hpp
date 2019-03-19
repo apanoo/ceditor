@@ -8,8 +8,10 @@
 
 Shader *shader;
 Vertex vertices[3];
+unsigned int indexs[] = {0,1,2};
 
 GLuint vbo;
+GLuint ebo;
 
 GLint lp ;
 GLint cp ;
@@ -61,6 +63,10 @@ public:
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 3, vertices, GL_STATIC_DRAW);
 
+        glGenBuffers(1, &ebo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)*3, indexs, GL_STATIC_DRAW);
+
         lp = shader->getAttribLocation("position");
         cp = shader->getAttribLocation("color");
         mp = shader->getUniformLocation("M");
@@ -74,6 +80,10 @@ public:
 
         glEnableVertexAttribArray(cp);
         glVertexAttribPointer(cp, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float)*3));
+
+        // unbind vbo & ebo
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
 
     ~Window() {
@@ -118,7 +128,9 @@ public:
         glUniformMatrix4fv(vp, 1, GL_FALSE, glm::value_ptr(glm::mat4(1)));
         glUniformMatrix4fv(pp, 1, GL_FALSE, glm::value_ptr(glm::perspective(45.0f, 680.0f / 480.0f, 0.1f, 1000.0f)));
 
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+        
         shader->disable();
     }
 
