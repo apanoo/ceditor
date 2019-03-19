@@ -78,6 +78,9 @@ private:
         // link & validate
         glLinkProgram(program);
         glValidateProgram(program);
+        // detach shader
+        glDetachShader(program, vertex);
+        glDetachShader(program, fragment);
 
         // delete data
         glDeleteShader(vertex);

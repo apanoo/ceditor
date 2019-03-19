@@ -5,6 +5,7 @@
 #include "sprite.hpp"
 
 Shader *shader;
+Shader *s;
 GLfloat vertices[] = {
     -0.5f, -0.5f, 0.0f,
     -0.5f,  0.5f, 0.0f,
@@ -29,6 +30,9 @@ public:
 #endif
         // init window after init flags
         init();
+
+        // test shader
+        s = new Shader("assets/shader/sample.vert", "assets/shader/sample.frag");
 
         // shader test
         shader = new Shader("assets/shader/bc.vert", "assets/shader/bc.frag");
@@ -70,7 +74,7 @@ public:
 
         GLenum error = glGetError();
         if ( error != GL_NO_ERROR ) {
-            std::cout << "OpenGL error: " << error << std::endl;
+            std::cout << "OpenGL error : " << error << std::endl;
             // exit(-1);
         }
         render();
