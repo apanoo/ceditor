@@ -5,16 +5,21 @@
 #include "sprite.hpp"
 #include "math.hpp"
 #include "vertex.hpp"
+#include "buffer.hpp"
+#include "model.hpp"
 
 Shader *shader;
-Vertex vertices[3];
-unsigned int indexs[] = {0,1,2};
 
-GLuint vbo;
-GLuint ebo;
+ArrayBuffer *_vbo;
+ArrayBuffer *_ebo;
+
+// int vcount = 0, icount = 0;
+
+OBJModel *model;
 
 GLint lp ;
-GLint cp ;
+GLint tc ;
+GLint nr ;
 GLint mp ;
 GLint vp ;
 GLint pp ;
@@ -32,63 +37,48 @@ public:
 #endif
         // init window after init flags
         init();
-        vertices[0].position[0] = 0;
-        vertices[0].position[1] = 0;
-        vertices[0].position[2] = -100.0f;
-        vertices[0].color[0] = 1.0f;
-        vertices[0].color[1] = 1.0f;
-        vertices[0].color[2] = 1.0f;
-        vertices[0].color[3] = 1.0f;
-
-        vertices[1].position[0] = 10;
-        vertices[1].position[1] = 0;
-        vertices[1].position[2] = -100.0f;
-        vertices[1].color[0] = 1.0f;
-        vertices[1].color[1] = 1.0f;
-        vertices[1].color[2] = 1.0f;
-        vertices[1].color[3] = 1.0f;
-
-        vertices[2].position[0] = 0;
-        vertices[2].position[1] = 10;
-        vertices[2].position[2] = -100.0f;
-        vertices[2].color[0] = 1.0f;
-        vertices[2].color[1] = 1.0f;
-        vertices[2].color[2] = 1.0f;
-        vertices[2].color[3] = 1.0f;
 
         // test shader
         shader = new Shader("assets/shader/sample.vert", "assets/shader/sample.frag");
+        model = new OBJModel("assets/models/cube.obj");
 
-        glGenBuffers(1, &vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 3, vertices, GL_STATIC_DRAW);
+        _vbo = new ArrayBuffer(BufferType::VBO, sizeof(Vertex) * model->_vertexCount, model->_vertexs);
+        _vbo->bind();
 
-        glGenBuffers(1, &ebo);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)*3, indexs, GL_STATIC_DRAW);
+        _ebo = new ArrayBuffer(BufferType::EBO, sizeof(unsigned int)*model->_indexCount, model->_indexs);
+        _ebo->bind();
 
         lp = shader->getAttribLocation("position");
-        cp = shader->getAttribLocation("color");
+        tc = shader->getAttribLocation("texcoord");
+        nr = shader->getAttribLocation("normal");
+
         mp = shader->getUniformLocation("M");
         vp = shader->getUniformLocation("V");
         pp = shader->getUniformLocation("P");
 
-        SDL_Log("lp: %d, cp: %d, mp: %d, vp: %d, pp: %d", lp, cp, mp, vp, pp);
+        SDL_Log("lp: %d, tc: %d, nr: %d, mp: %d, vp: %d, pp: %d", lp, tc, nr, mp, vp, pp);
 
         glEnableVertexAttribArray(lp);
         glVertexAttribPointer(lp, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 
-        glEnableVertexAttribArray(cp);
-        glVertexAttribPointer(cp, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float)*3));
+        glEnableVertexAttribArray(tc);
+        glVertexAttribPointer(tc, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float)*3));
+
+        glEnableVertexAttribArray(nr);
+        glVertexAttribPointer(nr, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float)*5));
 
         // unbind vbo & ebo
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        _vbo->unbind();
+        _ebo->unbind();
     }
 
     ~Window() {
         SDL_GL_DeleteContext(_glContext);
         SDL_DestroyWindow(_sdl_window);
+
+        delete _vbo;
+        delete _ebo;
+        delete model;
     }
 
 public:
@@ -107,7 +97,7 @@ public:
         }
 
         // Clear the screen
-        if( _bgblack )
+        if(_bgblack)
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         else
             glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
@@ -124,12 +114,12 @@ public:
     void render() {
         shader->enable();
 
-        glUniformMatrix4fv(mp, 1, GL_FALSE, glm::value_ptr(glm::mat4(1)));
+        glUniformMatrix4fv(mp, 1, GL_FALSE, glm::value_ptr(glm::translate(glm::mat4(1), glm::vec3(0.0f, 0.0f, -4.0f))));
         glUniformMatrix4fv(vp, 1, GL_FALSE, glm::value_ptr(glm::mat4(1)));
         glUniformMatrix4fv(pp, 1, GL_FALSE, glm::value_ptr(glm::perspective(45.0f, 680.0f / 480.0f, 0.1f, 1000.0f)));
 
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+        _ebo->bind();
+        glDrawElements(GL_TRIANGLES, model->_indexCount, GL_UNSIGNED_INT, 0);
         
         shader->disable();
     }
