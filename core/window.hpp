@@ -44,7 +44,7 @@ public:
         init();
 
         // test shader
-        shader = new Shader("assets/shader/diffuse.vert", "assets/shader/diffuse.frag");
+        shader = new Shader("assets/shader/specular.vert", "assets/shader/specular.frag");
         model = new OBJModel("assets/models/bunny.obj");
 
         _vbo = new ArrayBuffer(BufferType::VBO, sizeof(Vertex) * model->_vertices.size(), &model->_vertices[0]);
@@ -110,11 +110,9 @@ public:
         // show 3D model should clear depth bit
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        GLenum error = glGetError();
-        if ( error != GL_NO_ERROR ) {
-            SDL_Log("OpenGL error : %d", error);
-            // exit(-1);
-        }
+        // check error and pause
+        glCheckError();
+
         render();
     }
 
@@ -178,10 +176,9 @@ private:
         SDL_GL_GetDrawableSize(_sdl_window, &vpWidth, &vpHeight);
         glViewport(0, 0, vpWidth, vpHeight);
 
+#endif
         // show 3D model should enable depth test
         glEnable(GL_DEPTH_TEST);
-
-    #endif
     }
 private:
     SDL_Window *_sdl_window;

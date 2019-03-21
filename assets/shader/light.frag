@@ -4,6 +4,10 @@
 // uniform vec4 ambient_light_color;
 // uniform vec4 ambient_material;
 
+#ifdef GL_ES
+precision mediump float;
+#endif
+
 void main() {
     // environment light color
     vec4 ambient_light_color=vec4(0.2, 0.2, 0.2, 1.0);

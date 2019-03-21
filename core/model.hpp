@@ -8,9 +8,9 @@
 
 // index struct helper
 struct VertexIndex {
-    uint pIndex;
-    uint tIndex;
-    uint nIndex;
+    int pIndex;
+    int tIndex;
+    int nIndex;
 };
 
 class OBJModel {
