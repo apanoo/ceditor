@@ -13,9 +13,11 @@ Shader *shader;
 ArrayBuffer *_vbo;
 ArrayBuffer *_ebo;
 
-// int vcount = 0, icount = 0;
-
 OBJModel *model;
+
+glm::mat4 vmdl = glm::translate(glm::mat4(1), glm::vec3(0.0f, 0.0f, -4.0f)) *
+    glm::rotate(glm::mat4(1), glm::radians(45.0f), glm::vec3(1.0, 0.0, 0.0)) *
+    glm::scale(glm::mat4(1), glm::vec3(0.002f, 0.002f, 0.002f)); // bunny scale
 
 GLint lp ;
 GLint tc ;
@@ -40,12 +42,12 @@ public:
 
         // test shader
         shader = new Shader("assets/shader/sample.vert", "assets/shader/sample.frag");
-        model = new OBJModel("assets/models/cube.obj");
+        model = new OBJModel("assets/models/bunny.obj");
 
-        _vbo = new ArrayBuffer(BufferType::VBO, sizeof(Vertex) * model->_vertexCount, model->_vertexs);
+        _vbo = new ArrayBuffer(BufferType::VBO, sizeof(Vertex) * model->_vertices.size(), &model->_vertices[0]);
         _vbo->bind();
 
-        _ebo = new ArrayBuffer(BufferType::EBO, sizeof(unsigned int)*model->_indexCount, model->_indexs);
+        _ebo = new ArrayBuffer(BufferType::EBO, sizeof(unsigned int)*model->_indices.size(), &model->_indices[0]);
         _ebo->bind();
 
         lp = shader->getAttribLocation("position");
@@ -114,12 +116,13 @@ public:
     void render() {
         shader->enable();
 
-        glUniformMatrix4fv(mp, 1, GL_FALSE, glm::value_ptr(glm::translate(glm::mat4(1), glm::vec3(0.0f, 0.0f, -4.0f))));
+        glUniformMatrix4fv(mp, 1, GL_FALSE, glm::value_ptr(vmdl));
         glUniformMatrix4fv(vp, 1, GL_FALSE, glm::value_ptr(glm::mat4(1)));
         glUniformMatrix4fv(pp, 1, GL_FALSE, glm::value_ptr(glm::perspective(45.0f, 680.0f / 480.0f, 0.1f, 1000.0f)));
 
         _ebo->bind();
-        glDrawElements(GL_TRIANGLES, model->_indexCount, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, model->_indices.size(), GL_UNSIGNED_INT, 0);
+        _ebo->unbind();
         
         shader->disable();
     }

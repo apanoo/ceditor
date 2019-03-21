@@ -66,7 +66,7 @@ cfd:
 
 .PHONY: run
 run: build-cpp
-	export LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(PWD)/lib && $(EXEC)
+	export LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(PWD)/lib && $(PWD)/$(EXEC)
 
 .PHONY: run-js
 run-js: build-js build-wes

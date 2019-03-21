@@ -6,150 +6,145 @@
 #include "file.hpp"
 #include "util.h"
 
-class OBJModel
-{
-  public:
-    OBJModel(const char *filename) : _filename(std::string(filename))
-    {
+// index struct helper
+struct VertexIndex {
+    uint pIndex;
+    uint tIndex;
+    uint nIndex;
+};
+
+class OBJModel {
+public:
+    OBJModel(const char *filepath) : _filepath(std::string(filepath)) {
         // load file
-        load(filename);
+        if (!load(filepath)) {
+            SDL_Log("load obj model fail [%s]", filepath);
+        }
+        SDL_Log("load obj model success [%s]", filepath);
     }
 
-    virtual ~OBJModel()
-    {
-        delete _vertexs;
-        delete _indexs;
-    }
+    virtual ~OBJModel() {}
 
-  private:
-    void load(const char *filename)
-    {
-        // vertex data
-        struct VertexInfo
-        {
-            float v[3];
-        };
-        struct VertexDefine
-        {
-            int positionIndex;
-            int texcoordIndex;
-            int normalIndex;
-        };
+private:
+    bool load(const char *filepath) {
+        std::vector<glm::vec3> positions;
+        std::vector<glm::vec2> texcoords;
+        std::vector<glm::vec3> normals;
+        std::vector<VertexIndex> indices;
 
-        std::vector<VertexInfo> positions;
-        std::vector<VertexInfo> texcoords;
-        std::vector<VertexInfo> normals;
-
-        std::vector<unsigned int> indexes;
-        std::vector<VertexDefine> vertexs;
-
-        const char *fc = FileUtils::read(filename).c_str();
-        if (fc != nullptr)
-        {
-            std::stringstream stream(fc);
-            char szLine[256];
-            while (!stream.eof())
-            {
-                memset(szLine, 0, 256);
-                stream.getline(szLine, 256);
-                if (strlen(szLine) > 0)
-                {
-                    if (szLine[0] == 'v')
-                    {
-                        if (szLine[1] == 't')
-                        {
-                            // texcoord
-                            VertexInfo vi;
-                            int result = sscanf(szLine, "%*s %f %f", &vi.v[0], &vi.v[1]);
-                            if (result == 0)
-                                continue;
-                            texcoords.push_back(vi);
-                        }
-                        else if (szLine[1] == 'n')
-                        {
-                            // normal
-                            VertexInfo vi;
-                            int result = sscanf(szLine, "%*s %f %f %f", &vi.v[0], &vi.v[1], &vi.v[2]);
-                            if (result == 0)
-                                continue;
-                            normals.push_back(vi);
-                        }
-                        else
-                        {
-                            // position
-                            VertexInfo vi;
-                            int result = sscanf(szLine, "%*s %f %f %f", &vi.v[0], &vi.v[1], &vi.v[2]);
-                            if (result == 0)
-                                continue;
-                            positions.push_back(vi);
-                        }
-                    }
-                    else if (szLine[0] == 'f')
-                    {
-                        // f index/texcoord/normal
-                        VertexDefine vd[3];
-                        int result = sscanf(szLine, "%*s %d/%d/%d %d/%d/%d %d/%d/%d",
-                            &vd[0].positionIndex, &vd[0].texcoordIndex, &vd[0].normalIndex,
-                            &vd[1].positionIndex, &vd[1].texcoordIndex, &vd[1].normalIndex,
-                            &vd[2].positionIndex, &vd[2].texcoordIndex, &vd[2].normalIndex);
-                        if (result == 0)
-                        {
-                            SDL_Log("face data unsupport");
+        std::string str = FileUtils::read(filepath);
+        if (str.empty()) {
+            SDL_Log("read model file [%s] returl null string", filepath);
+            return false;
+        }
+        
+        std::stringstream stream(str.c_str());
+        char szLine[256];
+        while (!stream.eof()) {
+            memset(szLine, 0, 256);
+            stream.getline(szLine, 256);
+            if (strlen(szLine) > 0) {
+                if (szLine[0] == 'v') {
+                    if (szLine[1] == 't') { // texcoord
+                        float s, t;
+                        if (sscanf(szLine, "%*s %f %f", &s, &t) == 0) {
                             continue;
                         }
-
-                        for (size_t i = 0; i < 3; i++)
-                        {
-                            // index start at 0
-                            vd[i].positionIndex -= 1;
-                            vd[i].texcoordIndex -= 1;
-                            vd[i].normalIndex -= 1;
-
-                            // filter same position
-                            int currentidx = -1;
-                            size_t curcount = vertexs.size();
-                            for (size_t j = 0; j < curcount; j++)
-                            {
-                                if (vertexs[j].positionIndex == vd[i].positionIndex &&
-                                    vertexs[j].texcoordIndex == vd[i].texcoordIndex &&
-                                    vertexs[j].normalIndex == vd[i].normalIndex)
-                                {
-                                    currentidx = j;
-                                    break;
-                                }
-                            }
-                            if (currentidx == -1)
-                            {
-                                currentidx = vertexs.size();
-                                vertexs.push_back(vd[i]);
-                            }
-                            indexes.push_back(currentidx);
+                        texcoords.push_back(glm::vec2(s, t));
+                    }
+                    else if (szLine[1] == 'n') { // normal
+                        float x, y, z;
+                        if (sscanf(szLine, "%*s %f %f %f", &x, &y, &z) == 0) {
+                            continue;
                         }
+                        normals.push_back(glm::vec3(x, y, z));
+                    } else { // position
+                        float x, y, z;
+                        if (sscanf(szLine, "%*s %f %f %f", &x, &y, &z) == 0) {
+                            continue;
+                        }
+                        positions.push_back(glm::vec3(x, y, z));
+                    }
+                } else if (szLine[0] == 'f') {
+                    VertexIndex vi[3];
+                    std::string strLine(szLine);
+                    if (auto sl = strLine.find_first_of('/')) {
+                        if (strLine[sl+1] == '/') {
+                            // no texcoord index
+                            // f index/texcoord/normal
+                            if (sscanf(szLine, "%*s %d//%d %d//%d %d//%d",
+                                &vi[0].pIndex, &vi[0].nIndex,
+                                &vi[1].pIndex, &vi[1].nIndex,
+                                &vi[2].pIndex, &vi[2].nIndex) == 0 ) {
+                                // continue if err
+                                continue;
+                            }
+                            // default index
+                            vi[0].tIndex = 1;
+                            vi[1].tIndex = 1;
+                            vi[2].tIndex = 1;
+                            texcoords.push_back(glm::vec2(0, 0));
+                        } else {
+                            // f index/texcoord/normal
+                            if (sscanf(szLine, "%*s %d/%d/%d %d/%d/%d %d/%d/%d",
+                                &vi[0].pIndex, &vi[0].tIndex, &vi[0].nIndex,
+                                &vi[1].pIndex, &vi[1].tIndex, &vi[1].nIndex,
+                                &vi[2].pIndex, &vi[2].tIndex, &vi[2].nIndex) == 0 ) {
+                                // continue if err
+                                continue;
+                            } 
+                        }
+                    }
+
+                    for (size_t i = 0; i < 3; i++) {
+                        // index start at 0
+                        // index should be 0 when no texcoord data
+                        vi[i].pIndex --;
+                        vi[i].tIndex --;
+                        vi[i].nIndex --;
+
+                        auto cul = _vertices.size();
+                        unsigned int cuidx = -1;
+                        for (size_t j=0; j < cul; ++j) {
+                            if (_vertices[j].position == positions[vi[i].pIndex] &&
+                                _vertices[j].texcoord == texcoords[vi[i].tIndex] &&
+                                _vertices[j].normal == normals[vi[i].nIndex]) {
+                                // find same point
+                                cuidx = j;
+                            }
+                        }
+                        if (cuidx == -1) {
+                            cuidx = _vertices.size();
+                            // push vertex data
+                            _vertices.push_back(Vertex {
+                                positions[vi[i].pIndex],
+                                texcoords[vi[i].tIndex],
+                                normals[vi[i].nIndex]
+                            });
+                        }
+                        // push index
+                        _indices.push_back(cuidx);
                     }
                 }
             }
-            _indexCount = (int)indexes.size();
-            _indexs = new unsigned int[_indexCount];
-            for (int i = 0; i < _indexCount; i++)
-            {
-                _indexs[i] = indexes[i];
-            }
-            _vertexCount = (int)vertexs.size();
-
-            _vertexs = new Vertex[_vertexCount];
-            for (int i = 0; i < _vertexCount; i++)
-            {
-                memcpy(_vertexs[i].position, positions[vertexs[i].positionIndex].v, sizeof(float) * 3);
-                memcpy(_vertexs[i].texcoord, texcoords[vertexs[i].texcoordIndex].v, sizeof(float) * 2);
-                memcpy(_vertexs[i].position, normals[vertexs[i].normalIndex].v, sizeof(float) * 3);
-            }
         }
+
+        // for(size_t i = 0; i < _vertices.size(); i++)
+        // {
+        //     printf("vertex: %f %f %f ; %f %f ; %f %f %f\n", _vertices[i].position.x, _vertices[i].position.y, _vertices[i].position.z,
+        //         _vertices[i].texcoord.x, _vertices[i].texcoord.y, _vertices[i].normal.x, _vertices[i].normal.y, _vertices[i].normal.z); 
+        // }
+        
+        // for(size_t i = 0; i < _indices.size()-2; i+=3)
+        // {
+        //     printf("index: %d %d %d\n", _indices[i], _indices[i+1], _indices[i+2]);
+        // }
+
+        return true;
     }
 
   public:
-    std::string _filename;
-    Vertex *_vertexs;
-    int _vertexCount;
-    int _indexCount;
-    unsigned int *_indexs;
+    std::string _filepath;
+    std::vector<Vertex> _vertices;
+    std::vector<unsigned int> _indices;
 };
