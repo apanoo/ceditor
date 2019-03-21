@@ -15,9 +15,11 @@ ArrayBuffer *_ebo;
 
 OBJModel *model;
 
-glm::mat4 vmdl = glm::translate(glm::mat4(1), glm::vec3(0.0f, 0.0f, -4.0f)) *
+glm::mat4 vmdl = glm::translate(glm::mat4(1), glm::vec3(0.0f, 0.0f, -5.0f)) *
     glm::rotate(glm::mat4(1), glm::radians(45.0f), glm::vec3(1.0, 0.0, 0.0)) *
     glm::scale(glm::mat4(1), glm::vec3(0.002f, 0.002f, 0.002f)); // bunny scale
+
+glm::mat4 normalMatrix = glm::inverseTranspose(vmdl);
 
 GLint lp ;
 GLint tc ;
@@ -25,6 +27,7 @@ GLint nr ;
 GLint mp ;
 GLint vp ;
 GLint pp ;
+GLint nm ;
 
 class Window {
 public:
@@ -41,7 +44,7 @@ public:
         init();
 
         // test shader
-        shader = new Shader("assets/shader/sample.vert", "assets/shader/sample.frag");
+        shader = new Shader("assets/shader/diffuse.vert", "assets/shader/diffuse.frag");
         model = new OBJModel("assets/models/bunny.obj");
 
         _vbo = new ArrayBuffer(BufferType::VBO, sizeof(Vertex) * model->_vertices.size(), &model->_vertices[0]);
@@ -57,6 +60,7 @@ public:
         mp = shader->getUniformLocation("M");
         vp = shader->getUniformLocation("V");
         pp = shader->getUniformLocation("P");
+        nm = shader->getUniformLocation("NM");
 
         SDL_Log("lp: %d, tc: %d, nr: %d, mp: %d, vp: %d, pp: %d", lp, tc, nr, mp, vp, pp);
 
@@ -103,11 +107,12 @@ public:
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         else
             glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        // show 3D model should clear depth bit
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         GLenum error = glGetError();
         if ( error != GL_NO_ERROR ) {
-            std::cout << "OpenGL error : " << error << std::endl;
+            SDL_Log("OpenGL error : %d", error);
             // exit(-1);
         }
         render();
@@ -119,6 +124,7 @@ public:
         glUniformMatrix4fv(mp, 1, GL_FALSE, glm::value_ptr(vmdl));
         glUniformMatrix4fv(vp, 1, GL_FALSE, glm::value_ptr(glm::mat4(1)));
         glUniformMatrix4fv(pp, 1, GL_FALSE, glm::value_ptr(glm::perspective(45.0f, 680.0f / 480.0f, 0.1f, 1000.0f)));
+        glUniformMatrix4fv(nm, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 
         _ebo->bind();
         glDrawElements(GL_TRIANGLES, model->_indices.size(), GL_UNSIGNED_INT, 0);
@@ -138,7 +144,7 @@ private:
         SDL_CreateWindowAndRenderer(_width, _height, 0, &_sdl_window, nullptr);
     #else
         if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-            std::cout << "Could not initialize SDL" << std::endl;
+            SDL_Log("Could not initialize SDL");
         }
         SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
@@ -150,11 +156,11 @@ private:
                 flags);
 
         if(_sdl_window == NULL) {
-            std::cout << "Could not create window" << std::endl;
+            SDL_Log("Could not create window");
         }
         _glContext = SDL_GL_CreateContext(_sdl_window);
         if(_glContext == NULL) {
-            std::cout << "Could not create the OpenGL context" << std::endl;
+            SDL_Log("Could not create the OpenGL context");
         }
 
 #if defined(__ANDROID__) || defined(EMSCRIPTEN) || defined(__IPHONEOS__)
@@ -162,8 +168,7 @@ private:
 #else
         gladLoadGLLoader(SDL_GL_GetProcAddress);
 #endif
-
-        std::cout << "OpenGL :" << glGetString( GL_VERSION ) << std::endl;
+        SDL_Log("OpenGL : %s", glGetString(GL_VERSION));
 
         // V-Sync
         SDL_GL_SetSwapInterval(1);
@@ -172,6 +177,9 @@ private:
         GLint vpWidth, vpHeight;
         SDL_GL_GetDrawableSize(_sdl_window, &vpWidth, &vpHeight);
         glViewport(0, 0, vpWidth, vpHeight);
+
+        // show 3D model should enable depth test
+        glEnable(GL_DEPTH_TEST);
 
     #endif
     }

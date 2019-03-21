@@ -22,19 +22,3 @@
 #include <glad/glad.h>
 #endif
 #endif // EMEMSCRIPTEN
-
-/// simple helper
-void __stdlog (const std::string &msg) {
-    std::cout << msg << std::endl;
-}
-
-void __stderr (const std::string &msg) {
-    __stdlog(msg);
-}
-
-void __fatal(const std::string &msg) {
-    __stderr(msg);
-    int wait;
-    std::cin >> wait;
-    exit(-1);  // exit system
-}
