@@ -1,11 +1,12 @@
 1. support cmake on Mac
 2. support cmake on Linux
 3. support cmake on Windows
-4. render core/* to android [done]
-5. render core/* to iOS [done]
+4. render core/* to android         [done]
+5. render core/* to iOS             [done]
 6. fix make flow after 1-5
 7. complete OpenGL renderer
 8. fix cross platform renderer
-9. model support
+9. basic model support              [done]
 10. abstract for electron ui layer
 11. electron ui part
+12. basic light                     [done]

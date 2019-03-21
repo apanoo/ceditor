@@ -129,17 +129,6 @@ private:
             }
         }
 
-        // for(size_t i = 0; i < _vertices.size(); i++)
-        // {
-        //     printf("vertex: %f %f %f ; %f %f ; %f %f %f\n", _vertices[i].position.x, _vertices[i].position.y, _vertices[i].position.z,
-        //         _vertices[i].texcoord.x, _vertices[i].texcoord.y, _vertices[i].normal.x, _vertices[i].normal.y, _vertices[i].normal.z); 
-        // }
-        
-        // for(size_t i = 0; i < _indices.size()-2; i+=3)
-        // {
-        //     printf("index: %d %d %d\n", _indices[i], _indices[i+1], _indices[i+2]);
-        // }
-
         return true;
     }
 
