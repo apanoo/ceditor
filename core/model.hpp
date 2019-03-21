@@ -116,11 +116,11 @@ private:
                         if (cuidx == -1) {
                             cuidx = _vertices.size();
                             // push vertex data
-                            _vertices.push_back(Vertex {
+                            _vertices.push_back(Vertex(
                                 positions[vi[i].pIndex],
                                 texcoords[vi[i].tIndex],
                                 normals[vi[i].nIndex]
-                            });
+                            ));
                         }
                         // push index
                         _indices.push_back(cuidx);

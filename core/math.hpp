@@ -1,4 +1,3 @@
-#include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <glm/vec2.hpp> // glm::vec2
 #include <glm/vec3.hpp> // glm::vec3
