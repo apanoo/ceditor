@@ -202,6 +202,11 @@ private:
 #endif
         // show 3D model should enable depth test
         glEnable(GL_DEPTH_TEST);
+
+        //// enable bland for rgba format texture
+        // glEnable(GL_BLEND);
+        //// set blend mode
+        // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 private:
     SDL_Window *_sdl_window;

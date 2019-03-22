@@ -49,7 +49,7 @@ private:
         }
 
         // free image data
-        FileUtils::release_image(data);
+        FileUtils::free_image(data);
         
         // unbind texture
         glBindTexture(GL_TEXTURE_2D, 0);

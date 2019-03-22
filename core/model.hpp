@@ -32,7 +32,8 @@ private:
         std::vector<glm::vec3> normals;
         std::vector<VertexIndex> indices;
 
-        std::string str = FileUtils::read(filepath);
+        unsigned char* strptr = FileUtils::read_raw(filepath);
+        std::string str = std::string((const char*)strptr);
         if (str.empty()) {
             SDL_Log("Read model file [%s] returl null string", filepath);
             return false;
@@ -128,6 +129,9 @@ private:
                 }
             }
         }
+
+        // free
+        FileUtils::free_raw(strptr);
 
         return true;
     }

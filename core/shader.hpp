@@ -45,10 +45,9 @@ private:
         GLuint fragment = glCreateShader(GL_FRAGMENT_SHADER);
 
         // source
-        std::string vss = FileUtils::read(_vert);
-        std::string fss = FileUtils::read(_frag);
-        const char* vsource = vss.c_str();
-        const char* fsource = fss.c_str();
+        const char* vsource = (const char*)FileUtils::read_raw(_vert);
+        const char* fsource = (const char*)FileUtils::read_raw(_frag);
+        
         // set source
         glShaderSource(vertex, 1, &vsource, NULL);
         glCompileShader(vertex);
@@ -94,6 +93,9 @@ private:
         // delete data
         glDeleteShader(vertex);
         glDeleteShader(fragment);
+
+        FileUtils::free_raw((unsigned char*)vsource);
+        FileUtils::free_raw((unsigned char*)fsource);
 
         return program;
     }
