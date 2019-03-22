@@ -62,7 +62,8 @@ private:
             glGetShaderInfoLog(vertex, length, &length, &error[0]);
             // delete
             glDeleteShader(vertex);
-            std::cout << "Vertex: " << &error[0] << std::endl;
+            SDL_Log("Vertex shader error: %s", &error[0]);
+            // std::cout << "Vertex: " << &error[0] << std::endl;
             return 0;
         }
 
@@ -77,7 +78,7 @@ private:
             glGetShaderInfoLog(fragment, length, &length, &error[0]);
             // delete
             glDeleteShader(fragment);
-            std::cout << "Fragment: " << &error[0] << std::endl;
+            SDL_Log("Fragment shader error: %s", &error[0]);
             return 0;
         }
         // attach shader

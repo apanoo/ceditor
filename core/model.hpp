@@ -18,9 +18,9 @@ public:
     OBJModel(const char *filepath) : _filepath(std::string(filepath)) {
         // load file
         if (!load(filepath)) {
-            SDL_Log("load obj model fail [%s]", filepath);
+            SDL_Log("Load obj model fail [%s]", filepath);
         }
-        SDL_Log("load obj model success [%s]", filepath);
+        SDL_Log("Load obj model success [%s]", filepath);
     }
 
     virtual ~OBJModel() {}
@@ -34,7 +34,7 @@ private:
 
         std::string str = FileUtils::read(filepath);
         if (str.empty()) {
-            SDL_Log("read model file [%s] returl null string", filepath);
+            SDL_Log("Read model file [%s] returl null string", filepath);
             return false;
         }
         

@@ -7,17 +7,24 @@
 #include "vertex.hpp"
 #include "buffer.hpp"
 #include "model.hpp"
+#include "texture.hpp"
 
 Shader *shader;
+
+Texture *_texture;
 
 ArrayBuffer *_vbo;
 ArrayBuffer *_ebo;
 
 OBJModel *model;
 
+// glm::mat4 vmdl = glm::translate(glm::mat4(1), glm::vec3(0.0f, 0.0f, -5.0f)) *
+//     glm::rotate(glm::mat4(1), glm::radians(45.0f), glm::vec3(1.0, 0.0, 0.0)) *
+//     glm::scale(glm::mat4(1), glm::vec3(0.002f, 0.002f, 0.002f)); // bunny scale
+
 glm::mat4 vmdl = glm::translate(glm::mat4(1), glm::vec3(0.0f, 0.0f, -5.0f)) *
-    glm::rotate(glm::mat4(1), glm::radians(45.0f), glm::vec3(1.0, 0.0, 0.0)) *
-    glm::scale(glm::mat4(1), glm::vec3(0.002f, 0.002f, 0.002f)); // bunny scale
+    glm::rotate(glm::mat4(1), glm::radians(45.0f), glm::vec3(1.0, 0.0, 0.0));
+
 
 glm::mat4 normalMatrix = glm::inverseTranspose(vmdl);
 
@@ -28,6 +35,7 @@ GLint mp ;
 GLint vp ;
 GLint pp ;
 GLint nm ;
+GLint txp ;
 
 class Window {
 public:
@@ -44,8 +52,9 @@ public:
         init();
 
         // test shader
-        shader = new Shader("assets/shader/specular.vert", "assets/shader/specular.frag");
-        model = new OBJModel("assets/models/bunny.obj");
+        shader = new Shader("assets/shader/texture.vert", "assets/shader/texture.frag");
+        model = new OBJModel("assets/models/rock/rock.obj");
+        _texture = new Texture("assets/models/rock/rock.png");
 
         _vbo = new ArrayBuffer(BufferType::VBO, sizeof(Vertex) * model->_vertices.size(), &model->_vertices[0]);
         _vbo->bind();
@@ -61,8 +70,16 @@ public:
         vp = shader->getUniformLocation("V");
         pp = shader->getUniformLocation("P");
         nm = shader->getUniformLocation("NM");
+        txp = shader->getUniformLocation("U_MainTexture");
 
-        SDL_Log("lp: %d, tc: %d, nr: %d, mp: %d, vp: %d, pp: %d", lp, tc, nr, mp, vp, pp);
+        // TODO move to shader
+        shader->enable();
+        // bind 'sampler U_MainTexture' to sampler unit 0 : GL_TEXTURE0(default avtived)
+        glUniform1i(txp, 0);
+        shader->disable();
+        // !TODO
+
+        SDL_Log("Location. lp: %d, tc: %d, nr: %d, mp: %d, vp: %d, pp: %d, txp: %d", lp, tc, nr, mp, vp, pp, txp);
 
         glEnableVertexAttribArray(lp);
         glVertexAttribPointer(lp, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
@@ -85,6 +102,7 @@ public:
         delete _vbo;
         delete _ebo;
         delete model;
+        delete _texture;
     }
 
 public:
@@ -104,7 +122,7 @@ public:
 
         // Clear the screen
         if(_bgblack)
-            glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         else
             glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
         // show 3D model should clear depth bit
@@ -123,6 +141,11 @@ public:
         glUniformMatrix4fv(vp, 1, GL_FALSE, glm::value_ptr(glm::mat4(1)));
         glUniformMatrix4fv(pp, 1, GL_FALSE, glm::value_ptr(glm::perspective(45.0f, 680.0f / 480.0f, 0.1f, 1000.0f)));
         glUniformMatrix4fv(nm, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+        // glUniform1i(txp, 0);
+
+        // bind texture before draw
+        _texture->bind();
 
         _ebo->bind();
         glDrawElements(GL_TRIANGLES, model->_indices.size(), GL_UNSIGNED_INT, 0);

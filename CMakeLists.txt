@@ -31,6 +31,7 @@ if(MINGW)
 endif()
 
 set(sdlDir "${projectDir}/thirdparty/SDL2")
+set(glmDir "${projectDir}/thirdparty/glm")
 add_subdirectory(${sdlDir} EXCLUDE_FROM_ALL)
 set(SDL2MAIN_LIBRARY SDL2main)
 set(SDL2_LIBRARY SDL2)
@@ -52,6 +53,7 @@ set(projectSources
 # Include dirs.
 set(projectIncludeDirs ${projectIncludeDirs}
   "${sdlDir}/include"
+  "${glmDir}"
 )
 
 message("     Sources: ${projectSources}\n")
