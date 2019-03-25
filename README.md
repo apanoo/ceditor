@@ -1,5 +1,9 @@
 # wasmgl
 
+
+[![Build Status](https://travis-ci.com/apanoo/ceditor.svg?branch=master)](https://travis-ci.com/apanoo/ceditor)
+
+
 Web assembly OpenGL
 
 ## 1. make dep
