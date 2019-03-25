@@ -1,0 +1,22 @@
+language: cpp
+sudo: required
+dist: trusty
+compiler:
+- clang
+os:
+- linux
+ruby: 2.2.0
+before_install:
+- echo $LANG
+- echo $LC_ALL
+- if [ $TRAVIS_OS_NAME == linux ]; then make dep; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then make dep; fi
+script:
+- if [ $TRAVIS_OS_NAME == linux ]; then make build-cpp; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then make build-cpp; fi
+after_success:
+- if [ $TRAVIS_OS_NAME == linux ]; then echo TODO; fi
+- if [ $TRAVIS_BRANCH == $TRAVIS_TAG ]; then echo TODO; fi
+branches:
+  only:
+  - master
