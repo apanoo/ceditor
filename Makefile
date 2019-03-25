@@ -55,7 +55,7 @@ cf:
 # build dependencies
 .PHONY: dep
 dep: cfd
-	cd $(DEPBUILD) && cmake .. && make && cd -
+	cd $(DEPBUILD) && cmake .. -DCMAKE_C_COMPILER=gcc DCMAKE_CXX_COMPILER=g++ && make && cd -
 
 .PHONY: cfd
 cfd:
