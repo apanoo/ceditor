@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include "util.h"
+#include "math.hpp"
 #include "file.hpp"
 
 class Shader {
@@ -18,13 +19,35 @@ public:
         glDeleteProgram(_shader);
     }
 
-    GLuint getAttribLocation(const char* name) {
+    GLuint getAttribLocation(const GLchar* name) {
         return glGetAttribLocation(_shader, name);
     }
 
-    GLuint getUniformLocation(const char* name) {
-        return glGetUniformLocation(_shader, name);
+    ///// set uniform /////
+    void setUniform1f(const GLchar* name, float value) {
+        glUniform1f(getUniformLocation(name), value);
     }
+
+    void setUniform1i(const GLchar* name, int value) {
+        glUniform1i(getUniformLocation(name), value);
+    }
+
+    void setUniform2f(const GLchar* name, const glm::vec2& vector) {
+        glUniform2f(getUniformLocation(name), vector.x, vector.y);
+    }
+
+    void setUniform3f(const GLchar* name, const glm::vec3& vector) {
+        glUniform3f(getUniformLocation(name), vector.x, vector.y, vector.z);
+    }
+
+    void setUniform4f(const GLchar* name, const glm::vec4& vector) {
+        glUniform4f(getUniformLocation(name), vector.x, vector.y, vector.z, vector.w);
+    }
+
+    void setUniformMat4(const GLchar* name, const glm::mat4& matrix) {
+        glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, glm::value_ptr(matrix));
+    }
+    ///// !set uniform /////
 
     void enable() const {
         glUseProgram(_shader);
@@ -34,6 +57,10 @@ public:
         glUseProgram(0);
     }
 private:
+    GLuint getUniformLocation(const GLchar* name) {
+        return glGetUniformLocation(_shader, name);
+    }
+
     /**
      *  internal load shader from file
      *  and compile & link

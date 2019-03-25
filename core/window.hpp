@@ -6,7 +6,7 @@
 #include "math.hpp"
 #include "vertex.hpp"
 #include "buffer.hpp"
-#include "model.hpp"
+#include "3d/model.hpp"
 #include "texture.hpp"
 
 Shader *shader;
@@ -31,11 +31,6 @@ glm::mat4 normalMatrix = glm::inverseTranspose(vmdl);
 GLint lp ;
 GLint tc ;
 GLint nr ;
-GLint mp ;
-GLint vp ;
-GLint pp ;
-GLint nm ;
-GLint txp ;
 
 class Window {
 public:
@@ -66,20 +61,12 @@ public:
         tc = shader->getAttribLocation("texcoord");
         nr = shader->getAttribLocation("normal");
 
-        mp = shader->getUniformLocation("M");
-        vp = shader->getUniformLocation("V");
-        pp = shader->getUniformLocation("P");
-        nm = shader->getUniformLocation("NM");
-        txp = shader->getUniformLocation("U_MainTexture");
-
-        // TODO move to shader
         shader->enable();
         // bind 'sampler U_MainTexture' to sampler unit 0 : GL_TEXTURE0(default avtived)
-        glUniform1i(txp, 0);
+        shader->setUniform1i("U_MainTexture", 0);
         shader->disable();
-        // !TODO
 
-        SDL_Log("Location. lp: %d, tc: %d, nr: %d, mp: %d, vp: %d, pp: %d, txp: %d", lp, tc, nr, mp, vp, pp, txp);
+        SDL_Log("Location. lp: %d, tc: %d, nr: %d", lp, tc, nr);
 
         glEnableVertexAttribArray(lp);
         glVertexAttribPointer(lp, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
@@ -137,12 +124,10 @@ public:
     void render() {
         shader->enable();
 
-        glUniformMatrix4fv(mp, 1, GL_FALSE, glm::value_ptr(vmdl));
-        glUniformMatrix4fv(vp, 1, GL_FALSE, glm::value_ptr(glm::mat4(1)));
-        glUniformMatrix4fv(pp, 1, GL_FALSE, glm::value_ptr(glm::perspective(45.0f, 680.0f / 480.0f, 0.1f, 1000.0f)));
-        glUniformMatrix4fv(nm, 1, GL_FALSE, glm::value_ptr(normalMatrix));
-
-        // glUniform1i(txp, 0);
+        shader->setUniformMat4("M", vmdl);
+        shader->setUniformMat4("V", glm::mat4(1));
+        shader->setUniformMat4("P", glm::perspective(45.0f, 680.0f / 480.0f, 0.1f, 1000.0f));
+        shader->setUniformMat4("NM", normalMatrix);
 
         // bind texture before draw
         _texture->bind();
