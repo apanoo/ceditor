@@ -11,3 +11,9 @@
 11. electron ui part
 12. basic light                     [done]
 13. load texture                    [done]
+14. build system: simple task
+15. build system: multi task
+16. build system: android
+17. build system: iOS
+18. build system: web
+19. build system: win/linux/osx
