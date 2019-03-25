@@ -1,8 +1,15 @@
-language: cpp
-sudo: required
 dist: trusty
+language: cpp
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-7
+      - g++-7
+sudo: required
 compiler:
-- clang
+- g++
 os:
 - linux
 ruby: 2.2.0
@@ -12,6 +19,7 @@ before_install:
 - if [ $TRAVIS_OS_NAME == linux ]; then make dep; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then make dep; fi
 script:
+- alias g++="g++-7" && alias gcc="gcc-7"
 - if [ $TRAVIS_OS_NAME == linux ]; then make build-cpp; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then make build-cpp; fi
 after_success:

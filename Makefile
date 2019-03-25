@@ -1,6 +1,6 @@
 ## Makefile
 CCJS=emcc
-CC=clang++
+CC=g++
 BINDIR=bin
 DEPBUILD=$(PWD)/thirdparty/build
 EXECJS=$(BINDIR)/index.js
