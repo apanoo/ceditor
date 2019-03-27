@@ -3,6 +3,9 @@
 
 [![Build Status](https://travis-ci.com/apanoo/ceditor.svg?branch=master)](https://travis-ci.com/apanoo/ceditor)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![dev status](https://img.shields.io/badge/status-developing-green.svg)]()
+
+
 
 
 Web assembly OpenGL
