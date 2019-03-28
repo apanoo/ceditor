@@ -133,7 +133,12 @@ public:
         _texture->bind();
 
         _ebo->bind();
+        // show 3D model should enable depth test
+        glEnable(GL_DEPTH_TEST);
+
         glDrawElements(GL_TRIANGLES, model->_indices.size(), GL_UNSIGNED_INT, 0);
+
+        glDisable(GL_DEPTH_TEST);
         _ebo->unbind();
         
         shader->disable();
@@ -185,9 +190,6 @@ private:
         glViewport(0, 0, vpWidth, vpHeight);
 
 #endif
-        // show 3D model should enable depth test
-        glEnable(GL_DEPTH_TEST);
-
         //// enable bland for rgba format texture
         // glEnable(GL_BLEND);
         //// set blend mode

@@ -11,7 +11,7 @@ enum BufferType {
 class ArrayBuffer {
 public:
     ArrayBuffer(BufferType type, GLsizei count, void* data) 
-        : _bufType(type) {
+        : _bufType(type), _count(count) {
         glGenBuffers(1, &_bufID);
         glBindBuffer(_bufType, _bufID);
         glBufferData(_bufType, count, data, GL_STATIC_DRAW);
@@ -29,7 +29,10 @@ public:
         glBindBuffer(_bufType, 0);
     }
 
+    inline GLsizei getCount() const { return _count; }
+
 private:
     BufferType _bufType;
     GLuint _bufID;
+    GLsizei _count;
 };
