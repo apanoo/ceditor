@@ -8,19 +8,22 @@ EXEC=$(BINDIR)/apg
 INC= -I$(PWD)/thirdparty/SDL2/include \
 	 -I$(PWD)/thirdparty/glad/include \
 	 -I$(PWD)/thirdparty/glm \
+	 -I$(PWD)/thirdparty/freetype/include \
+	 -I$(PWD)/thirdparty/freetype-gl \
 	 -I$(PWD)/core
 DYL= -lSDL2-2.0 \
 	 -lglad
-DYLCommon= -lglm_shared
+DYLCommon= -lglm_shared \
+		   -lfreetype \
+		   -lfreetype-gl
 LIBS= -L$(PWD)/lib
 # SRCS=cpp/main.cpp
 SRCS=core/main.cpp \
-	#  engine/engine.cpp \
-	#  engine/window.cpp
 
 GLMP=$(PWD)/thirdparty/glm
 SDLP=$(PWD)/thirdparty/SDL2
 GLADP=$(PWD)/thirdparty/glad
+FREETYPE=$(PWD)/thirdparty/freetype
 
 # build cpp to js
 .PHONY: build-js
@@ -32,7 +35,7 @@ OBJS=$(SRCS:.cpp=.o)
 # binary needs all *.o files from $(OBJS)
 .PHONY: build-internal
 build-internal: cf $(OBJS)
-	$(CC) -std=c++11 -g -o $(EXEC) $(OBJS) $(DYL) $(LIBS) $(DYLCommon)
+	$(CC) -std=c++11 -g -o $(EXEC) $(OBJS) $(DYL) $(LIBS) $(DYLCommon) ${INC}
 
 .PHONY: build-cpp
 build-cpp:
@@ -63,6 +66,7 @@ cfd:
 	@if [ ! -f $(GLMP)/CMakeLists.txt ]; then rm -rf $(GLMP) && git submodule init && git submodule update; fi;
 	@if [ ! -f $(SDLP)/CMakeLists.txt ]; then rm -rf $(SDLP) && git submodule init && git submodule update; fi;
 	@if [ ! -f $(GLADP)/CMakeLists.txt ]; then rm -rf $(GLADP) && git submodule init && git submodule update; fi;
+	@if [ ! -f $(FREETYPE)/CMakeLists.txt ]; then rm -rf $(FREETYPE) && git submodule init && git submodule update; fi;
 
 .PHONY: run
 run: build-cpp

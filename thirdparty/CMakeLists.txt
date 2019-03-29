@@ -18,13 +18,19 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/glm)
 set( BUILD_STATIC_LIBS OFF CACHE BOOL "Build the static glm library" )
 set( GLM_TEST_ENABLE OFF CACHE BOOL "Build unit tests" )
 
+# freetype
+add_definitions(-DFT_CONFIG_OPTION_PIC)
+add_subdirectory(${PROJECT_SOURCE_DIR}/freetype)
+
+# freetype-gl
+include_directories(${PROJECT_SOURCE_DIR}/glad/include ${PROJECT_SOURCE_DIR}/freetype/include)
+add_subdirectory(${PROJECT_SOURCE_DIR}/freetype-gl)
 
 # change output dir
-set_target_properties( SDL2 glad glm_shared
+set_target_properties( SDL2 glad glm_shared freetype freetype-gl
     PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/../lib"
     LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/../lib"
     RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/../lib"
     
 )
-

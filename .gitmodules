@@ -7,3 +7,6 @@
 [submodule "thirdparty/glad"]
 	path = thirdparty/glad
 	url = https://git.dev.tencent.com/liuya/glad.git
+[submodule "thirdparty/freetype"]
+	path = thirdparty/freetype
+	url = https://git.dev.tencent.com/liuya/freetype.git
