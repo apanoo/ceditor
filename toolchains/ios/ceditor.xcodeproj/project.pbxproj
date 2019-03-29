@@ -797,6 +797,7 @@
 				HEADER_SEARCH_PATHS = (
 					../../thirdparty/SDL2/include,
 					../../thirdparty/glm,
+					../../core,
 				);
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
@@ -811,6 +812,7 @@
 				HEADER_SEARCH_PATHS = (
 					../../thirdparty/SDL2/include,
 					../../thirdparty/glm,
+					../../core,
 				);
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
