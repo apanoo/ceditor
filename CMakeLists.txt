@@ -54,6 +54,7 @@ set(projectSources
 set(projectIncludeDirs ${projectIncludeDirs}
   "${sdlDir}/include"
   "${glmDir}"
+  "${sourceDir}"
 )
 
 message("     Sources: ${projectSources}\n")
