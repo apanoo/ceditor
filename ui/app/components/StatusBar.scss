@@ -1,0 +1,28 @@
+// status bar height
+$StatusBarHeight: 24px;
+// status bar color
+$StatusBarColor: rgb(52, 52, 52);
+// status bar padding left
+$StatusPaddingSides: 8px;
+// status item margin right
+$StatusItemMarginRight: 5px;
+// status item font size
+$StatusItemFontSize: 13px;
+
+.statusBar {
+  width: 100%;
+  height: $StatusBarHeight;
+  padding: 0 $StatusPaddingSides;
+  line-height: $StatusBarHeight;
+  background-color: $StatusBarColor;
+  ul {
+    padding: 0;
+    margin: 0;
+    li {
+      float: left;
+      user-select: none;
+      font-size: $StatusItemFontSize;
+      margin-right: $StatusItemMarginRight;
+    }
+  }
+}

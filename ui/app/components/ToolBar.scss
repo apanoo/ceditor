@@ -1,0 +1,31 @@
+// toolbar height
+$ToolBarHeight: 41px;
+// toolbar background color
+$ToolBarBackgroundColor: rgb(60, 60, 60);
+// toolbar item padding left & right
+$ToolBarItemPaddingSides: 5px;
+// toolbar item hover color
+$ToolBarItemHoverColor: rgba(80, 80, 80, 80);
+
+.toolbar {
+  height: $ToolBarHeight;
+  background-color: $ToolBarBackgroundColor;
+  ol {
+    padding: 0;
+    margin: 0;
+    height: $ToolBarHeight;
+    li {
+      height: $ToolBarHeight;
+      line-height: $ToolBarHeight;
+      padding: 0 $ToolBarItemPaddingSides;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      float: left;
+    }
+    li:hover {
+      background-color: $ToolBarItemHoverColor;
+    }
+  }
+}

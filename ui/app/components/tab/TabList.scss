@@ -1,0 +1,31 @@
+.tabs {
+  min-height: 200px;
+  height: 100%;
+}
+
+.tablist {
+  overflow: hidden;
+  border: 1px solid rgba(52, 52, 52, 250);
+  border-left: none;
+  background-color: rgb(56, 56, 56);
+
+  button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 16px;
+    color: white;
+  }
+
+  button:hover {
+    background-color: rgba(90, 90, 90, 80);
+  }
+
+  button.active {
+    background-color: rgba(100, 100, 100, 90);
+  }
+}

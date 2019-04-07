@@ -10,6 +10,9 @@
     "node": true
   },
   "rules": {
+    "no-unused-vars": "warn",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "warn",
     "arrow-parens": ["off"],
     "compat/compat": "error",
     "consistent-return": "off",

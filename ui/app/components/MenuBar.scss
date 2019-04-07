@@ -1,0 +1,45 @@
+// menu bar height
+$MenuHeight: 24px;
+// menu item minimum width
+$MenuItemMinWidth: 45px;
+// menu bar background color
+$MenuBackgroundColor: rgb(56, 56, 56);
+// menu item font size
+$MenuItemFontSize: 13px;
+// menu item padding sides(left & right)
+$MenuItemPaddingSides: 5px;
+// menu item hover color
+$MenuItemHoverColor: rgba(90, 90, 90, 80);
+
+.menubar {
+  display: block;
+  background-color: $MenuBackgroundColor;
+  height: $MenuHeight;
+  ol {
+    margin: 0;
+    padding: 0;
+    height: $MenuHeight;
+    li {
+      min-width: $MenuItemMinWidth;
+      height: $MenuHeight;
+      line-height: $MenuHeight;
+      font-size: $MenuItemFontSize;
+      padding: 0 $MenuItemPaddingSides;
+      list-style: none;
+      text-transform: capitalize;
+      float: left;
+      text-align: center;
+      user-select: none;
+      cursor: default;
+    }
+    li:hover {
+      background-color: $MenuItemHoverColor;
+    }
+    li.active {
+      background-color: $MenuItemHoverColor;
+    }
+    li::first-letter {
+      text-decoration: underline;
+    }
+  }
+}

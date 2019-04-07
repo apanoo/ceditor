@@ -8,7 +8,7 @@
 8. fix cross platform renderer
 9. basic model support              [done]
 10. abstract for electron ui layer
-11. electron ui part
+11. electron ui part                [10% ]
 12. basic light                     [done]
 13. load texture                    [done]
 14. build system: simple task

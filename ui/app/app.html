@@ -18,12 +18,18 @@
       .titleBar {
         -webkit-app-region: drag;
         height: 21px;
+        text-align: center;
+        line-height: 21px;
+        user-select: none;
+        background-color: rgb(60, 60, 60);
       }
     </style>
   </head>
   <body>
-    <div class="titleBar"></div>
-    <div id="root"></div>
+    <div class="titleBar">
+      ceditor
+    </div>
+    <div id="root" style="height: 100%; min-width: 900px"></div>
     <script>
       {
         const scripts = [];
