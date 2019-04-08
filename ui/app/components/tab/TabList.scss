@@ -1,3 +1,11 @@
+$TabHoverColor: rgb(90, 90, 90);
+$TabActiveColor: rgb(100, 100, 100);
+$TabTitleBackgroundColor: rgb(56, 56, 56);
+$TabTitleButtomPadding: 14px 16px;
+$TabTitleBorderStyle: 1px solid rgb(52, 52, 52);
+$TabTitleFontSize: 16px;
+$TabTitleFontColor: white;
+
 .tabs {
   min-height: 200px;
   height: 100%;
@@ -5,9 +13,9 @@
 
 .tablist {
   overflow: hidden;
-  border: 1px solid rgba(52, 52, 52, 250);
+  border: $TabTitleBorderStyle;
   border-left: none;
-  background-color: rgb(56, 56, 56);
+  background-color: $TabTitleBackgroundColor;
 
   button {
     background-color: inherit;
@@ -15,17 +23,17 @@
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    padding: $TabTitleButtomPadding;
     transition: 0.3s;
-    font-size: 16px;
-    color: white;
+    font-size: $TabTitleFontSize;
+    color: $TabTitleFontColor;
   }
 
   button:hover {
-    background-color: rgba(90, 90, 90, 80);
+    background-color: $TabHoverColor;
   }
 
   button.active {
-    background-color: rgba(100, 100, 100, 90);
+    background-color: $TabActiveColor;
   }
 }

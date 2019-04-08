@@ -1,9 +1,61 @@
-.menu {
+$MenuPanelBackgroundColor: rgb(54, 54, 54);
+$MenuPanelBorderStyle: 1px solid rgb(51, 51, 51);
+$MenuPanelShadow: 1px 1px 2px rgb(50, 50, 50);
+$MenuPanelPadding: 3px 0;
+$DividerStyle: 1px solid rgba(255, 255, 255, 0.2);
+$MenuItemFontSize: 13px;
+$MenuItemFontOpacity: 0.9;
+$MenuItemFontColor: white;
+
+.menupanel {
   position: absolute;
-  // top: 45px;
-  // left: 0px;
-  width: 180px;
   height: 200px;
-  background-color: rgba(255, 0, 0, 10);
   z-index: 100;
+}
+
+.menus {
+  width: 100%;
+
+  .menubg {
+    background-color: $MenuPanelBackgroundColor;
+    border: $MenuPanelBorderStyle;
+    box-shadow: $MenuPanelShadow;
+    padding: $MenuPanelPadding;
+    color: white;
+    border-radius: 0;
+
+    .divider {
+      border-top: $DividerStyle;
+    }
+
+    a {
+      opacity: $MenuItemFontOpacity;
+      font-size: $MenuItemFontSize;
+      border-radius: 0;
+      padding-top: 3px;
+      padding-bottom: 3px;
+    }
+
+    span {
+      color: $MenuItemFontColor;
+    }
+
+    // submenu item style
+    .submenu {
+      background-color: $MenuPanelBackgroundColor;
+      color: white;
+      opacity: $MenuItemFontOpacity;
+      border-radius: 0;
+    }
+
+    // submenu panel style
+    & > li > span > span + div ul {
+      border: $MenuPanelBorderStyle;
+      box-shadow: $MenuPanelShadow;
+      padding: $MenuPanelPadding;
+      color: white;
+      border-radius: 0;
+      background-color: $MenuPanelBackgroundColor;
+    }
+  }
 }

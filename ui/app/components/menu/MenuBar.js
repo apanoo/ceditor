@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import styles from './MenuBar.scss';
 
-import Menu from './menu/menu';
+import MenuPanel from './menu';
 
-import MenuBarConstants from '../constants/menu';
+import MenuBarConstants from '../../constants/menu';
 
 type Props = {};
 
@@ -85,11 +85,11 @@ export default class MenuBar extends Component<Props> {
               className={
                 visiable &&
                 current &&
-                current.outerText.toLowerCase() === item.toLowerCase()
+                current.outerText.toLowerCase() === item.title.toLowerCase()
                   ? styles.active
                   : ''
               }
-              key={item}
+              key={item.title}
               onClick={e => {
                 this.onMenuBarItemClick(e);
               }}
@@ -98,11 +98,16 @@ export default class MenuBar extends Component<Props> {
               }}
               onFocus={() => {}}
             >
-              {item}
+              {item.title}
             </li>
           ))}
         </ol>
-        <Menu left={left} top={top} visiable={visiable} />
+        <MenuPanel
+          left={left}
+          top={top}
+          visiable={visiable}
+          title={current && current.outerText.toLowerCase()}
+        />
       </div>
     );
   }

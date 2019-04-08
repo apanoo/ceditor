@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MenuBar from './MenuBar';
+import MenuBar from './menu/MenuBar';
 import ToolBar from './ToolBar';
 import MainCanvas from './MainCanvas';
 import StatusBar from './StatusBar';

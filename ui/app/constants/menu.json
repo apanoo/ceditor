@@ -1,3 +1,202 @@
 {
-  "menuBarItems": ["file", "edit", "debug", "view", "help"]
+  "menuBarItems": [
+    {
+      "title": "file",
+      "children": [
+        {
+          "type": "menu",
+          "ficon": "new-text-box",
+          "text": "New text box",
+          "command": "",
+          "sicon": "",
+          "children": [
+            {
+              "type": "menu",
+              "ficon": "new-text-box",
+              "text": "New text box",
+              "command": "",
+              "sicon": "",
+              "children": []
+            },
+            {
+              "type": "menu",
+              "ficon": "new-text-box",
+              "text": "New text box2",
+              "command": "",
+              "sicon": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "ficon": "new-object",
+          "text": "New object",
+          "command": "",
+          "sicon": ""
+        },
+        {
+          "type": "menu",
+          "ficon": "new-link",
+          "text": "New link",
+          "command": "",
+          "sicon": ""
+        },
+        {
+          "type": "devider"
+        },
+        {
+          "type": "menu",
+          "ficon": "cog",
+          "text": "Settings...",
+          "command": "",
+          "sicon": "share"
+        }
+      ]
+    },
+    {
+      "title": "edit",
+      "children": [
+        {
+          "type": "menu",
+          "ficon": "new-text-box",
+          "text": "New text box",
+          "command": "",
+          "sicon": ""
+        },
+        {
+          "type": "menu",
+          "ficon": "new-object",
+          "text": "New object",
+          "command": "",
+          "sicon": ""
+        },
+        {
+          "type": "menu",
+          "ficon": "new-link",
+          "text": "New link",
+          "command": "",
+          "sicon": ""
+        },
+        {
+          "type": "devider"
+        },
+        {
+          "type": "menu",
+          "ficon": "cog",
+          "text": "Settings...",
+          "command": "",
+          "sicon": "share"
+        }
+      ]
+    },
+    {
+      "title": "debug",
+      "children": [
+        {
+          "type": "menu",
+          "ficon": "new-text-box",
+          "text": "New text box",
+          "command": "",
+          "sicon": ""
+        },
+        {
+          "type": "menu",
+          "ficon": "new-object",
+          "text": "New object",
+          "command": "",
+          "sicon": ""
+        },
+        {
+          "type": "menu",
+          "ficon": "new-link",
+          "text": "New link",
+          "command": "",
+          "sicon": ""
+        },
+        {
+          "type": "devider"
+        },
+        {
+          "type": "menu",
+          "ficon": "cog",
+          "text": "Settings...",
+          "command": "",
+          "sicon": "share"
+        }
+      ]
+    },
+    {
+      "title": "view",
+      "children": [
+        {
+          "type": "menu",
+          "ficon": "new-text-box",
+          "text": "New text box",
+          "command": "",
+          "sicon": ""
+        },
+        {
+          "type": "menu",
+          "ficon": "new-object",
+          "text": "New object",
+          "command": "",
+          "sicon": ""
+        },
+        {
+          "type": "menu",
+          "ficon": "new-link",
+          "text": "New link",
+          "command": "",
+          "sicon": ""
+        },
+        {
+          "type": "devider"
+        },
+        {
+          "type": "menu",
+          "ficon": "cog",
+          "text": "Settings...",
+          "command": "",
+          "sicon": "share"
+        }
+      ]
+    },
+    {
+      "title": "help",
+      "children": [
+        {
+          "type": "menu",
+          "ficon": "new-text-box",
+          "text": "New text box",
+          "command": "",
+          "sicon": ""
+        },
+        {
+          "type": "menu",
+          "ficon": "new-object",
+          "text": "New object",
+          "command": "",
+          "sicon": ""
+        },
+        {
+          "type": "menu",
+          "ficon": "new-link",
+          "text": "New link",
+          "command": "",
+          "sicon": ""
+        },
+        {
+          "type": "devider"
+        },
+        {
+          "type": "menu",
+          "ficon": "cog",
+          "text": "Settings...",
+          "command": "",
+          "sicon": "share"
+        }
+      ]
+    }
+  ]
 }
