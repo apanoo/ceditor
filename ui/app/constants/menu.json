@@ -24,7 +24,16 @@
               "text": "New text box2",
               "command": "",
               "sicon": "",
-              "children": []
+              "children": [
+                {
+                  "type": "menu",
+                  "ficon": "new-text-box",
+                  "text": "New text box2",
+                  "command": "",
+                  "sicon": "",
+                  "children": []
+                }
+              ]
             }
           ]
         },

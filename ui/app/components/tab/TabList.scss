@@ -9,31 +9,38 @@ $TabTitleFontColor: white;
 .tabs {
   min-height: 200px;
   height: 100%;
+
+  .tablist {
+    height: 48px;
+    overflow: hidden;
+    border: $TabTitleBorderStyle;
+    border-left: none;
+    background-color: $TabTitleBackgroundColor;
+  
+    button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: $TabTitleButtomPadding;
+      transition: 0.3s;
+      font-size: $TabTitleFontSize;
+      color: $TabTitleFontColor;
+    }
+  
+    button:hover {
+      background-color: $TabHoverColor;
+    }
+  
+    button.active {
+      background-color: $TabActiveColor;
+    }
+  }
+
+  .content {
+    height: calc(100% - 48px);
+  }
 }
 
-.tablist {
-  overflow: hidden;
-  border: $TabTitleBorderStyle;
-  border-left: none;
-  background-color: $TabTitleBackgroundColor;
 
-  button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: $TabTitleButtomPadding;
-    transition: 0.3s;
-    font-size: $TabTitleFontSize;
-    color: $TabTitleFontColor;
-  }
-
-  button:hover {
-    background-color: $TabHoverColor;
-  }
-
-  button.active {
-    background-color: $TabActiveColor;
-  }
-}

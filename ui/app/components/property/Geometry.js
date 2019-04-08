@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
+import styles from './Geometry.scss';
 
 import Value from './value/Value';
 
-import styles from './Object.scss';
-
 type Props = {};
 
-export default class Object extends Component<Props> {
+export default class Geometry extends Component<Props> {
   props: Props;
 
   render() {
     return (
-      <div className={styles.object}>
+      <div className={styles.geometry}>
         <Value title="Test">
           <label>ttt</label>
         </Value>

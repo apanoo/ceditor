@@ -3,7 +3,8 @@ import styles from './TabList.scss';
 
 type Props = {
   // component children
-  children: Array
+  children: Array,
+  scroll: boolean
 };
 
 export default class TabList extends Component<Props> {
@@ -46,9 +47,13 @@ export default class TabList extends Component<Props> {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, scroll } = this.props;
     const { select, titles } = this.state;
     const onTabClick = this.onTabClick.bind(this);
+
+    const extStyle = {
+      overflowY: scroll ? 'auto' : 'initial'
+    };
 
     return (
       <div className={styles.tabs}>
@@ -69,9 +74,11 @@ export default class TabList extends Component<Props> {
             </button>
           ))}
         </div>
-        {select !== undefined &&
-          children[select] &&
-          children[select].props.content}
+        <div className={styles.content} style={extStyle}>
+          {select !== undefined &&
+            children[select] &&
+            children[select].props.content}
+        </div>
       </div>
     );
   }

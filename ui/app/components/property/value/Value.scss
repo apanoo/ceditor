@@ -1,0 +1,16 @@
+.value {
+  margin: 0px;
+  padding: 0px 15px;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .val {
+    width: 36px;
+    height: 13px;
+    background-color: green;
+  }
+}

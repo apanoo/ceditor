@@ -17,9 +17,8 @@ export default class Property extends Component<Props> {
   render() {
     return (
       <div className={styles.property}>
-        <TabList>
+        <TabList scroll={false}>
           <Tab title="Layers" content={<Layers />} />
-          <Tab title="Object" content={<Object />} />
           <Tab title="Settings" content={<Settings />} />
         </TabList>
       </div>
