@@ -2,15 +2,127 @@
   margin: 0;
   padding: 0 15px;
   width: 100%;
-  height: 20px;
+  height: 32px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 
-  .val {
-    width: 36px;
-    height: 13px;
-    background-color: green;
+  &>label {
+    max-width: 80px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // common value style
+  ul {
+    width: 140px;
+    padding: 0;
+    margin: 0;
+    
+    li {
+      padding: 0;
+      float: left;
+      max-width: 140px;
+      margin-left: 24px;
+      list-style: none;
+      text-transform: capitalize;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      // string and vector value
+      &>label {
+        color: rgb(123, 69, 173);
+        max-width: 140px;
+        display: block;
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        margin: 0;
+        
+        // clear all span outline
+        &>span {
+          outline: none !important;
+        }
+
+        // checkbox
+        &.checkbox {
+          &>span {
+            background-color: rgb(100, 100, 100) !important;
+          }
+        }
+        // toogle
+        &.toggle {
+          &>span::before {
+            background-color: rgb(100, 100, 100) !important; 
+          }
+        }
+      }
+
+      // string input
+      .string {
+        border-radius: 0;
+        border: none;
+        &>input {
+          border: none;
+          border-radius: 0;
+          font-size: 13px;
+          height: 24px;
+          line-height: 24px;
+          padding: 0 5px;
+          background-color: rgb(100, 100, 100);
+          &:focus {
+            box-shadow: none;
+          }
+        }
+      }
+      
+      // color span
+      .color {
+        display: block;
+        border: 1px solid rgb(20, 20, 20); 
+        border-radius: 1px;
+        width: 30px;
+        height: 10px;
+        background-color: green; 
+      }
+    }
   }
 }
+
+// select form
+.popover {
+  >span {
+    border-radius: 0;
+    >button {
+      background-color: rgb(90, 90, 90) !important;
+      min-height: 10px !important;
+      box-shadow: none !important;
+      border-radius: 0;
+      font-size: 12px;
+      width: 140px;
+      padding: 4px 5px;
+      display: block;
+      white-space: nowrap; 
+      overflow: hidden;
+      text-overflow: ellipsis; 
+
+      &:focus {
+        outline: none !important;
+      }
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.menu {
+  background-color: rgb(54, 54, 54) !important;
+  border-radius: 0 !important;
+}
+

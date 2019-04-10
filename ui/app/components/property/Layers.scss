@@ -3,10 +3,11 @@
   height: 100%;
 
   .main {
-    height: 260px;
+    height: 276px;
+    padding: 0 5px;
   }
 
   .tabs {
-    height: calc(100% - 260px);
+    height: calc(100% - 276px);
   }
 }
