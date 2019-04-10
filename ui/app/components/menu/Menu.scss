@@ -24,6 +24,10 @@ $MenuItemFontColor: white;
     color: white;
     border-radius: 0;
 
+    li:focus {
+      outline: none;
+    }
+
     .divider {
       border-top: $DividerStyle;
     }
@@ -38,6 +42,14 @@ $MenuItemFontColor: white;
 
     span {
       color: $MenuItemFontColor;
+
+      a {
+        outline: none;
+      }
+
+      &:focus {
+        outline: none;
+      }
     }
 
     // submenu item style
