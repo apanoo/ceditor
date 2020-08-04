@@ -42,7 +42,7 @@ android {
     }
     externalNativeBuild {
         cmake {
-            version "3.13.3"
+//            version "3.16.4"
             path "../../../CMakeLists.txt"
 
             // Using one top level build dir for all build related files to reduce clutter.
