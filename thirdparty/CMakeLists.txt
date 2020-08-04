@@ -16,6 +16,7 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/glad)
 # glm
 add_subdirectory(${PROJECT_SOURCE_DIR}/glm)
 set( BUILD_STATIC_LIBS OFF CACHE BOOL "Build the static glm library" )
+set( BUILD_SHARED_LIBS ON CACHE BOOL "Build the shared glm library" )
 set( GLM_TEST_ENABLE OFF CACHE BOOL "Build unit tests" )
 
 # freetype
@@ -32,5 +33,4 @@ set_target_properties( SDL2 glad glm_shared freetype freetype-gl
     ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/../lib"
     LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/../lib"
     RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/../lib"
-    
 )

@@ -22,7 +22,6 @@ SRCS=core/main.cpp \
 
 GLMP=$(PWD)/thirdparty/glm
 SDLP=$(PWD)/thirdparty/SDL2
-GLADP=$(PWD)/thirdparty/glad
 FREETYPE=$(PWD)/thirdparty/freetype
 
 # build cpp to js
@@ -65,7 +64,6 @@ cfd:
 	@if [ ! -d $(DEPBUILD) ]; then mkdir -p $(DEPBUILD); fi;
 	@if [ ! -f $(GLMP)/CMakeLists.txt ]; then rm -rf $(GLMP) && git submodule init && git submodule update; fi;
 	@if [ ! -f $(SDLP)/CMakeLists.txt ]; then rm -rf $(SDLP) && git submodule init && git submodule update; fi;
-	@if [ ! -f $(GLADP)/CMakeLists.txt ]; then rm -rf $(GLADP) && git submodule init && git submodule update; fi;
 	@if [ ! -f $(FREETYPE)/CMakeLists.txt ]; then rm -rf $(FREETYPE) && git submodule init && git submodule update; fi;
 
 .PHONY: run
