@@ -10,6 +10,7 @@
 		1D3623EC0D0F72F000981E51 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		9B52314D24D9293C0010E706 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B52313B24D9293C0010E706 /* CoreBluetooth.framework */; };
 		9B668D73223E296500D5CBA9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B668D72223E296500D5CBA9 /* main.cpp */; };
 		9B9865B2223BAAA000B90250 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9865A3223BA69900B90250 /* libSDL2.a */; };
 		9BE59086223FDFCB006C95A6 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 9BE59080223FDFCB006C95A6 /* assets */; };
@@ -127,6 +128,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9B52314524D9293C0010E706 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD1B48920E313154007AB34E /* SDL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 52ED1E5C222889500061FCE0;
+			remoteInfo = "libSDL-iOS-dylib";
+		};
+		9B52314724D9293C0010E706 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD1B48920E313154007AB34E /* SDL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3E3C7572241389A007D243C;
+			remoteInfo = "libSDL-tvOS-dylib";
+		};
+		9B52314924D9293C0010E706 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD1B48920E313154007AB34E /* SDL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3E3C65222406928007D243C;
+			remoteInfo = "libSDLmain-iOS";
+		};
+		9B52314B24D9293C0010E706 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD1B48920E313154007AB34E /* SDL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3E3C75F224138AE007D243C;
+			remoteInfo = "libSDLmain-tvOS";
+		};
 		9B9865A2223BA69900B90250 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FD1B48920E313154007AB34E /* SDL.xcodeproj */;
@@ -149,6 +178,7 @@
 		1D6058910D05DD3D006BFB54 /* ceditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ceditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B52313B24D9293C0010E706 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		9B668D72223E296500D5CBA9 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../../core/main.cpp; sourceTree = "<group>"; };
 		9BE59080223FDFCB006C95A6 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../../assets; sourceTree = "<group>"; };
 		FA30DE961BBF59D9009C397F /* Happy-TV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Happy-TV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +217,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B52314D24D9293C0010E706 /* CoreBluetooth.framework in Frameworks */,
 				9B9865B2223BAAA000B90250 /* libSDL2.a in Frameworks */,
 				FABA34D41D8B5E5600915323 /* AVFoundation.framework in Frameworks */,
 				FAE0E96A1BAF96A00098DFA4 /* GameController.framework in Frameworks */,
@@ -365,6 +396,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B52313B24D9293C0010E706 /* CoreBluetooth.framework */,
 				FABA34D71D8B5E7700915323 /* AVFoundation.framework */,
 				FABA34D31D8B5E5600915323 /* AVFoundation.framework */,
 				FAE0E9691BAF96A00098DFA4 /* GameController.framework */,
@@ -384,7 +416,11 @@
 			isa = PBXGroup;
 			children = (
 				9B9865A3223BA69900B90250 /* libSDL2.a */,
+				9B52314624D9293C0010E706 /* libSDL2.dylib */,
 				9B9865A5223BA69900B90250 /* libSDL2.a */,
+				9B52314824D9293C0010E706 /* libSDL2.dylib */,
+				9B52314A24D9293C0010E706 /* libSDLmain.a */,
+				9B52314C24D9293C0010E706 /* libSDLmain.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -619,6 +655,34 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		9B52314624D9293C0010E706 /* libSDL2.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDL2.dylib;
+			remoteRef = 9B52314524D9293C0010E706 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9B52314824D9293C0010E706 /* libSDL2.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDL2.dylib;
+			remoteRef = 9B52314724D9293C0010E706 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9B52314A24D9293C0010E706 /* libSDLmain.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDLmain.a;
+			remoteRef = 9B52314924D9293C0010E706 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9B52314C24D9293C0010E706 /* libSDLmain.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDLmain.a;
+			remoteRef = 9B52314B24D9293C0010E706 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		9B9865A3223BA69900B90250 /* libSDL2.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
