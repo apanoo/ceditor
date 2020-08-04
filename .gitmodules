@@ -1,12 +1,9 @@
 [submodule "thirdparty/glm"]
 	path = thirdparty/glm
-	url = https://git.dev.tencent.com/liuya/glm.git
+	url = https://github.com/apanoo/glm.git
 [submodule "thirdparty/SDL2"]
 	path = thirdparty/SDL2
-	url = https://git.dev.tencent.com/liuya/SDL2.git
-[submodule "thirdparty/glad"]
-	path = thirdparty/glad
-	url = https://git.dev.tencent.com/liuya/glad.git
+	url = https://github.com/apanoo/SDL2.git
 [submodule "thirdparty/freetype"]
 	path = thirdparty/freetype
-	url = https://git.dev.tencent.com/liuya/freetype.git
+	url = https://github.com/apanoo/freetype.git
