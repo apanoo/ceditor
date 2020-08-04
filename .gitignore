@@ -7,3 +7,5 @@ thirdparty/build
 bustm/bustm
 .vscode/ipch
 toolchains/android/.idea
+toolchains/ios/ceditor.xcodeproj/project.xcworkspace/xcuserdata
+toolchains/ios/ceditor.xcodeproj/xcuserdata
