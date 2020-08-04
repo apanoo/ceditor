@@ -6,3 +6,4 @@ thirdparty/build
 *.o
 bustm/bustm
 .vscode/ipch
+toolchains/android/.idea
