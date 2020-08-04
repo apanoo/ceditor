@@ -1,9 +1,1 @@
-[submodule "thirdparty/glm"]
-	path = thirdparty/glm
-	url = https://github.com/apanoo/glm.git
-[submodule "thirdparty/SDL2"]
-	path = thirdparty/SDL2
-	url = https://github.com/apanoo/SDL2.git
-[submodule "thirdparty/freetype"]
-	path = thirdparty/freetype
-	url = https://github.com/apanoo/freetype.git
+
