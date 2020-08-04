@@ -1,5 +1,7 @@
 # CEDITOR
+
 > Cross platform editor with OpenGL、electron and golang.
+
 ```
                   ___ __
    ________  ____/ (_) /_____  _____
@@ -13,6 +15,14 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![dev status](https://img.shields.io/badge/status-developing-green.svg)]()
 
+## 0.deps
+
+    OS:             MacOSX 10.15.6
+    ndk:            r18b
+    cmake:          3.16.4
+    environment:    1.40.1
+    xcode:          11.6 (11E708)
+    android studio: 4.0.1
 
 ## 1. make dep
 

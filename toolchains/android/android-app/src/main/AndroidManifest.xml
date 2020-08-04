@@ -13,6 +13,7 @@
         android:required="false" />
 
     <!-- Allow writing to external storage -->
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- if you want to capture audio, uncomment this. -->
