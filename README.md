@@ -32,6 +32,8 @@ Install dependencies
 
 Run engine desktop
 
+> build make build-cpp || mkdir build && cd build && cmake .. && make
+
 ## or. make run-js
 
 - Listening localhost:8080

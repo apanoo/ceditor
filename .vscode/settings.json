@@ -71,5 +71,6 @@
         "unordered_set": "cpp",
         "variant": "cpp",
         "ft2build.h": "c"
-    }
+    },
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
 }

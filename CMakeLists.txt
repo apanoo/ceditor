@@ -32,9 +32,13 @@ endif()
 
 set(sdlDir "${projectDir}/thirdparty/SDL2")
 set(glmDir "${projectDir}/thirdparty/glm")
+set(freetypeDir "${projectDir}/thirdparty/freetype")
+set(gladDir "${projectDir}/thirdparty/glad")
 add_subdirectory(${sdlDir} EXCLUDE_FROM_ALL)
+add_subdirectory(${gladDir})
 set(SDL2MAIN_LIBRARY SDL2main)
 set(SDL2_LIBRARY SDL2)
+set(GLAD_LIBRARY glad)
 
 
 # Joysticks were causing trouble on android.
@@ -55,6 +59,8 @@ set(projectIncludeDirs ${projectIncludeDirs}
   "${sdlDir}/include"
   "${glmDir}"
   "${sourceDir}"
+  "${freetypeDir}/include"
+  "${gladDir}/include"
 )
 
 message("     Sources: ${projectSources}\n")
@@ -95,6 +101,7 @@ target_link_libraries(${targetName}
   ${SDL2MAIN_LIBRARY}
   ${SDL2_LIBRARY}
   ${OPENGL_LIBRARY}
+	${GLAD_LIBRARY}
 )
 
 target_include_directories(${targetName}
