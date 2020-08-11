@@ -3,7 +3,7 @@ CCJS=emcc
 CC=g++
 BINDIR=bin
 DEPBUILD=$(PWD)/thirdparty/build
-EXECJS=$(BINDIR)/index.js
+EXECJS=$(BINDIR)/wgl.js
 EXEC=$(BINDIR)/apg
 INC= -I$(PWD)/thirdparty/SDL2/include \
 	 -I$(PWD)/thirdparty/glad/include \
