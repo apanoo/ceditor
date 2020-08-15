@@ -8,6 +8,7 @@ EXEC=$(BINDIR)/apg
 INC= -I$(PWD)/thirdparty/SDL2/include \
 	 -I$(PWD)/thirdparty/glad/include \
 	 -I$(PWD)/thirdparty/glm \
+	 -I$(PWD)/thirdparty/catch/include \
 	 -I$(PWD)/thirdparty/freetype/include \
 	 -I$(PWD)/thirdparty/freetype-gl \
 	 -I$(PWD)/core
