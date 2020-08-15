@@ -96,6 +96,6 @@ TSRCS=$(PWD)/test/math_test.cpp \
 TOBJS=$(TSRCS:.cpp=.o)
 .PHONY: test
 test: $(TOBJS)
-	@clang++ -std=c++11 -I$(PWD)/test $(INC) -o $(PWD)/bin/unit_test $(TOBJS)
+	@$(CC) -std=c++11 -I$(PWD)/test $(INC) -o $(PWD)/bin/unit_test $(TOBJS)
 	@rm $(PWD)/test/*.o
 	@$(PWD)/bin/unit_test
