@@ -37,6 +37,7 @@ public:
     Window(const std::string &title, int w, int h, int sx = 0, int sy = 0) :
         _title(title), _width(w), _height(h), _startx(sx), _starty(sy), _quit(false), _bgblack(true) {
         flags = SDL_WINDOW_OPENGL;
+        // SDL_WINDOW_BORDERLESS: hide window border
 #if defined(__ANDROID__) || defined(__IPHONEOS__)
         flags |= SDL_WINDOW_FULLSCREEN;
 #endif

@@ -10,3 +10,5 @@ toolchains/android/.idea
 toolchains/ios/ceditor.xcodeproj/project.xcworkspace/xcuserdata
 toolchains/ios/ceditor.xcodeproj/xcuserdata
 build/
+cmake-build-debug/
+.idea/
