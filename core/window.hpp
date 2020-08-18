@@ -109,7 +109,6 @@ public:
   void togglebg() { _bgblack = !_bgblack; }
 
   void update() {
-    SDL_GL_SwapWindow(_sdl_window);
 
     // event loop
     while (SDL_PollEvent(&_event)) {
@@ -125,6 +124,8 @@ public:
       glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
     // show 3D model should clear depth bit
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    SDL_GL_SwapWindow(_sdl_window);
 
     // check error and pause
     glCheckError();
