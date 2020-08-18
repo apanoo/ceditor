@@ -1,5 +1,6 @@
 #include "util.h"
 #include "window.hpp"
+#include "logger/log.h"
 
 Window *win;
 
@@ -33,6 +34,11 @@ void release() {
 
 
 int main(int argc, char* argv[]) {
+    // init logger
+    Log::Init();
+    // test logger
+    HZ_INFO("test logger ");
+    
     if (!init()) {
         SDL_Log("Initialization failed.");
         release();

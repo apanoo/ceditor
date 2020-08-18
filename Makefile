@@ -10,16 +10,19 @@ INC= -I$(PWD)/thirdparty/SDL2/include \
 	 -I$(PWD)/thirdparty/glm \
 	 -I$(PWD)/thirdparty/catch/include \
 	 -I$(PWD)/thirdparty/freetype/include \
+	 -I$(PWD)/thirdparty/spdlog/include \
 	 -I$(PWD)/thirdparty/freetype-gl \
 	 -I$(PWD)/core
 DYL= -lSDL2-2.0 \
-	 -lglad
+	 -lglad \
+	 -lspdlog
 DYLCommon= -lglm_shared \
 		   -lfreetype \
 		   -lfreetype-gl
 LIBS= -L$(PWD)/lib
 # SRCS=cpp/main.cpp
 SRCS=core/main.cpp \
+	 core/logger/log.cpp
 
 GLMP=$(PWD)/thirdparty/glm
 SDLP=$(PWD)/thirdparty/SDL2

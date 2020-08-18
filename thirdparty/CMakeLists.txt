@@ -27,8 +27,14 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/freetype)
 include_directories(${PROJECT_SOURCE_DIR}/glad/include ${PROJECT_SOURCE_DIR}/freetype/include)
 add_subdirectory(${PROJECT_SOURCE_DIR}/freetype-gl)
 
+# spdlog
+add_subdirectory(${PROJECT_SOURCE_DIR}/spdlog)
+
+# imgui
+add_subdirectory(${PROJECT_SOURCE_DIR}/imgui)
+
 # change output dir
-set_target_properties( SDL2 glad glm_shared freetype freetype-gl
+set_target_properties( SDL2 glad glm_shared freetype freetype-gl spdlog
     PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/../lib"
     LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/../lib"

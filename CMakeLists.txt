@@ -5,6 +5,19 @@
 cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
 project(ceditor C CXX)
 
+# Check and suport c++ 11
+include( CheckCXXCompilerFlag )  
+CHECK_CXX_COMPILER_FLAG( "-std=c++11" COMPILER_SUPPORTS_CXX11 )  
+CHECK_CXX_COMPILER_FLAG( "-std=c++0x" COMPILER_SUPPORTS_CXX0X )  
+if( COMPILER_SUPPORTS_CXX11 )  
+    set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11" )  
+elseif( COMPILER_SUPPORTS_CXX0X )  
+    set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x" )  
+else()  
+     message( FATAL "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler." )  
+endif() 
+
+
 #
 # Set some helper variables.
 #
@@ -34,11 +47,17 @@ set(sdlDir "${projectDir}/thirdparty/SDL2")
 set(glmDir "${projectDir}/thirdparty/glm")
 set(freetypeDir "${projectDir}/thirdparty/freetype")
 set(gladDir "${projectDir}/thirdparty/glad")
+set(spdlogDir "${projectDir}/thirdparty/spdlog")
+set(imguiDir "${projectDir}/thirdparty/imgui")
 add_subdirectory(${sdlDir} EXCLUDE_FROM_ALL)
 add_subdirectory(${gladDir})
+add_subdirectory(${spdlogDir})
+add_subdirectory(${imguiDir})
 set(SDL2MAIN_LIBRARY SDL2main)
 set(SDL2_LIBRARY SDL2)
 set(GLAD_LIBRARY glad)
+set(SPDLOG_LIBRARY spdlog)
+set(IMGUI_LIBRARY imgui)
 
 
 # Joysticks were causing trouble on android.
@@ -48,7 +67,13 @@ add_definitions(-DSDL_JOYSTICK=0)
 # Sources (relative to the project root dir).
 #
 set(projectSources
-  core/main.cpp
+  editor/main.cpp
+
+  # log
+  core/logger/log.cpp
+  # imgui
+  core/2d/gui/imgui_impl_opengl3.cpp
+  core/2d/gui/imgui_impl_sdl.cpp
 
   # Use this instead for an opengl example
   #source/main_opengl.c
@@ -61,6 +86,8 @@ set(projectIncludeDirs ${projectIncludeDirs}
   "${sourceDir}"
   "${freetypeDir}/include"
   "${gladDir}/include"
+  "${spdlogDir}/include"
+  "${imguiDir}"
 )
 
 message("     Sources: ${projectSources}\n")
@@ -101,7 +128,9 @@ target_link_libraries(${targetName}
   ${SDL2MAIN_LIBRARY}
   ${SDL2_LIBRARY}
   ${OPENGL_LIBRARY}
-	${GLAD_LIBRARY}
+  ${GLAD_LIBRARY}
+  ${SPDLOG_LIBRARY}
+  ${IMGUI_LIBRARY}
 )
 
 target_include_directories(${targetName}
