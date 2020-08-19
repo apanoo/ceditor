@@ -49,6 +49,7 @@ set(freetypeDir "${projectDir}/thirdparty/freetype")
 set(gladDir "${projectDir}/thirdparty/glad")
 set(spdlogDir "${projectDir}/thirdparty/spdlog")
 set(imguiDir "${projectDir}/thirdparty/imgui")
+set(trayDir "${projectDir}/thirdparty/tray")
 add_subdirectory(${sdlDir} EXCLUDE_FROM_ALL)
 add_subdirectory(${gladDir})
 add_subdirectory(${spdlogDir})
@@ -89,6 +90,7 @@ set(projectIncludeDirs ${projectIncludeDirs}
   "${gladDir}/include"
   "${spdlogDir}/include"
   "${imguiDir}"
+  # "${trayDir}"
 )
 
 message("     Sources: ${projectSources}\n")

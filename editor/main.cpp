@@ -14,8 +14,11 @@
 
 #include "2d/gui/functions.h"
 
-// ext
+// dialog ext
 #include "editor/ext/portable-file-dialogs.h"
+
+// tray ext
+// #include "tray.h"
 
 int windowWidth = 1280, windowHeight = 720;
 
