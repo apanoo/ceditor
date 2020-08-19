@@ -83,6 +83,7 @@ set(projectSources
 set(projectIncludeDirs ${projectIncludeDirs}
   "${sdlDir}/include"
   "${glmDir}"
+  "${projectDir}"
   "${sourceDir}"
   "${freetypeDir}/include"
   "${gladDir}/include"
