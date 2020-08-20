@@ -1,16 +1,16 @@
 
 [submodule "thirdparty/freetype"]
 	path = thirdparty/freetype
-	url = https://github.com/apanoo/freetype.git
+	url = https://gitee.com/apanoo/freetype
 [submodule "thirdparty/SDL2"]
 	path = thirdparty/SDL2
-	url = https://github.com/apanoo/SDL2.git
+	url = https://gitee.com/apanoo/SDL2
 [submodule "thirdparty/glm"]
 	path = thirdparty/glm
-	url = https://github.com/apanoo/glm.git
+	url = https://gitee.com/apanoo/glm
 [submodule "thirdparty/spdlog"]
 	path = thirdparty/spdlog
 	url = https://github.com/gabime/spdlog
 [submodule "thirdparty/imgui"]
 	path = thirdparty/imgui
-	url = https://github.com/apanoo/imgui
+	url = https://gitee.com/apanoo/imgui
