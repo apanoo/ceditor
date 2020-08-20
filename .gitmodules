@@ -10,7 +10,7 @@
 	url = https://gitee.com/apanoo/glm
 [submodule "thirdparty/spdlog"]
 	path = thirdparty/spdlog
-	url = https://github.com/gabime/spdlog
+	url = https://gitee.com/apanoo/spdlog
 [submodule "thirdparty/imgui"]
 	path = thirdparty/imgui
 	url = https://gitee.com/apanoo/imgui
