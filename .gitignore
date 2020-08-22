@@ -12,3 +12,4 @@ toolchains/ios/ceditor.xcodeproj/xcuserdata
 build/
 cmake-build-debug/
 .idea/
+imgui_log.txt
