@@ -3,8 +3,11 @@
 #include <memory>
 
 #include "api/core.h"
+#include "common/ref.h"
 #include "spdlog/spdlog.h"
-class Log {
+
+class Log
+{
 public:
   static void Init();
 
@@ -21,7 +24,7 @@ private:
 #define HZ_CORE_INFO(...) ::Hazel::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define HZ_CORE_WARN(...) ::Hazel::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define HZ_CORE_ERROR(...) ::Hazel::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define HZ_CORE_CRITICAL(...)                                                  \
+#define HZ_CORE_CRITICAL(...) \
   ::Hazel::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 // Client log macros
