@@ -1762,7 +1762,7 @@ static void ShowDemoWindowWidgets() {
     // indices. We probably want an API passing floats and user provide sample
     // rate/count.
     struct Funcs {
-      static float Sin(void *, int i) { return sinf(i * 0.1f); }
+      static float Sin(void *, int i) { return ::sinf(i * 0.1f); }
       static float Saw(void *, int i) { return (i & 1) ? 1.0f : -1.0f; }
     };
     static int func_type = 0, display_count = 70;

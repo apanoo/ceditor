@@ -73,6 +73,8 @@ add_definitions(-DSDL_JOYSTICK=0)
 set(projectSources
   editor/main-docking.cpp
   editor/imgui_demo.cpp
+  editor/plot/implot.cpp
+  editor/plot/implot_items.cpp
 
   # log
   core/logger/log.cpp
