@@ -50,15 +50,18 @@ set(gladDir "${projectDir}/thirdparty/glad")
 set(spdlogDir "${projectDir}/thirdparty/spdlog")
 set(imguiDir "${projectDir}/thirdparty/imgui")
 set(trayDir "${projectDir}/thirdparty/tray")
+set(imguiDocking "${projectDir}/thirdparty/imgui-docking")
 add_subdirectory(${sdlDir} EXCLUDE_FROM_ALL)
 add_subdirectory(${gladDir})
 add_subdirectory(${spdlogDir})
 add_subdirectory(${imguiDir})
+add_subdirectory(${imguiDocking})
 set(SDL2MAIN_LIBRARY SDL2main)
 set(SDL2_LIBRARY SDL2)
 set(GLAD_LIBRARY glad)
 set(SPDLOG_LIBRARY spdlog)
 set(IMGUI_LIBRARY imgui)
+set(IMGUI_DOCKING imgui-docking)
 
 
 # Joysticks were causing trouble on android.
@@ -68,7 +71,8 @@ add_definitions(-DSDL_JOYSTICK=0)
 # Sources (relative to the project root dir).
 #
 set(projectSources
-  editor/main.cpp
+  editor/main-docking.cpp
+  editor/imgui_demo.cpp
 
   # log
   core/logger/log.cpp
@@ -89,7 +93,8 @@ set(projectIncludeDirs ${projectIncludeDirs}
   "${freetypeDir}/include"
   "${gladDir}/include"
   "${spdlogDir}/include"
-  "${imguiDir}"
+  # "${imguiDir}"
+  "${imguiDocking}"
   # "${trayDir}"
 )
 
@@ -133,7 +138,8 @@ target_link_libraries(${targetName}
   ${OPENGL_LIBRARY}
   ${GLAD_LIBRARY}
   ${SPDLOG_LIBRARY}
-  ${IMGUI_LIBRARY}
+  # ${IMGUI_LIBRARY}
+  ${IMGUI_DOCKING}
 )
 
 target_include_directories(${targetName}
