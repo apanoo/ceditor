@@ -1,5 +1,5 @@
 ## Makefile
-CCJS=emcc
+CCJS=em++
 CC=g++
 BINDIR=bin
 DEPBUILD=$(PWD)/thirdparty/build
@@ -12,7 +12,9 @@ INC= -I$(PWD)/thirdparty/SDL2/include \
 	 -I$(PWD)/thirdparty/freetype/include \
 	 -I$(PWD)/thirdparty/spdlog/include \
 	 -I$(PWD)/thirdparty/freetype-gl \
-	 -I$(PWD)/core
+	 -I$(PWD)/thirdparty/imgui-docking \
+	 -I$(PWD)/core \
+	 -I$(PWD)
 DYL= -lSDL2-2.0 \
 	 -lglad \
 	 -lspdlog
@@ -21,8 +23,16 @@ DYLCommon= -lglm_shared \
 		   -lfreetype-gl
 LIBS= -L$(PWD)/lib
 # SRCS=cpp/main.cpp
-SRCS=core/main.cpp \
-	 core/logger/log.cpp
+SRCS= editor/main-docking.cpp \
+	editor/imgui_demo.cpp \
+	editor/plot/implot.cpp \
+	editor/plot/implot_items.cpp \
+	core/logger/log.cpp \
+	core/2d/gui/imgui_impl_opengl3.cpp \
+	core/2d/gui/imgui_impl_sdl.cpp \
+	thirdparty/imgui-docking/imgui.cpp \
+	thirdparty/imgui-docking/imgui_draw.cpp \
+	thirdparty/imgui-docking/imgui_widgets.cpp
 
 GLMP=$(PWD)/thirdparty/glm
 SDLP=$(PWD)/thirdparty/SDL2
@@ -76,7 +86,12 @@ run: build-cpp
 
 .PHONY: run-js
 run-js: build-js build-wes
-	cp toolchains/web/index.html $(BINDIR)
+	cp toolchains/web/index-imgui.html $(BINDIR)/index.html
+	cp toolchains/web/favicon.ico $(BINDIR)/favicon.ico
+	$(PWD)/bin/wes
+
+.PHONY: start-js
+start-js:
 	$(PWD)/bin/wes
 
 .PHONY: build-wes
