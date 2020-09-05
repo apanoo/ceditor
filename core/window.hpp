@@ -125,12 +125,12 @@ public:
     // show 3D model should clear depth bit
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    SDL_GL_SwapWindow(_sdl_window);
-
     // check error and pause
     glCheckError();
 
     render();
+
+    SDL_GL_SwapWindow(_sdl_window);
   }
 
   void render() {
