@@ -37,7 +37,7 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/imgui)
 add_subdirectory(${PROJECT_SOURCE_DIR}/imgui-docking)
 
 # change output dir
-set_target_properties( SDL2 glad glm_shared freetype freetype-gl spdlog
+set_target_properties( SDL2 glad glm_shared freetype freetype-gl spdlog imgui imgui-docking
     PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/../lib"
     LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/../lib"

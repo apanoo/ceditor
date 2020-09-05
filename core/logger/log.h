@@ -6,8 +6,7 @@
 #include "common/ref.h"
 #include "spdlog/spdlog.h"
 
-class Log
-{
+class Log {
 public:
   static void Init();
 
@@ -20,16 +19,15 @@ private:
 };
 
 // Core log macros
-#define HZ_CORE_TRACE(...) ::Hazel::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define HZ_CORE_INFO(...) ::Hazel::Log::GetCoreLogger()->info(__VA_ARGS__)
-#define HZ_CORE_WARN(...) ::Hazel::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define HZ_CORE_ERROR(...) ::Hazel::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define HZ_CORE_CRITICAL(...) \
-  ::Hazel::Log::GetCoreLogger()->critical(__VA_ARGS__)
+#define HZ_CORE_TRACE(...) ::Log::GetCoreLogger()->trace(__VA_ARGS__)
+#define HZ_CORE_INFO(...) ::Log::GetCoreLogger()->info(__VA_ARGS__)
+#define HZ_CORE_WARN(...) ::Log::GetCoreLogger()->warn(__VA_ARGS__)
+#define HZ_CORE_ERROR(...) ::Log::GetCoreLogger()->error(__VA_ARGS__)
+#define HZ_CORE_CRITICAL(...) ::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 // Client log macros
-#define HZ_TRACE(...) ::Hazel::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define HZ_INFO(...) ::Hazel::Log::GetClientLogger()->info(__VA_ARGS__)
-#define HZ_WARN(...) ::Hazel::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define HZ_ERROR(...) ::Hazel::Log::GetClientLogger()->error(__VA_ARGS__)
-#define HZ_CRITICAL(...) ::Hazel::Log::GetClientLogger()->critical(__VA_ARGS__)
+#define HZ_TRACE(...) ::Log::GetClientLogger()->trace(__VA_ARGS__)
+#define HZ_INFO(...) ::Log::GetClientLogger()->info(__VA_ARGS__)
+#define HZ_WARN(...) ::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define HZ_ERROR(...) ::Log::GetClientLogger()->error(__VA_ARGS__)
+#define HZ_CRITICAL(...) ::Log::GetClientLogger()->critical(__VA_ARGS__)
