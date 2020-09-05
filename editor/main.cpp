@@ -131,7 +131,7 @@ int main(int argc, char *argv[]) {
   ImGui::CreateContext();
   ImGuiIO &io = ImGui::GetIO();
   (void)io;
-  io.Fonts->AddFontFromFileTTF("assets/fonts/verdana.ttf", 15.0f, NULL, NULL);
+  io.Fonts->AddFontFromFileTTF("assets/fonts/verdana.ttf", 14.0f, NULL, NULL);
 
   // setup Dear ImGui style
   // ImGui::StyleColorsDark();
