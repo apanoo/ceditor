@@ -15,6 +15,12 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![dev status](https://img.shields.io/badge/status-developing-green.svg)]()
 
+```
+git clone https://github.com/apanoo/ceditor
+cd ceditor
+git submodule update --init --recursive
+```
+
 ## 0.deps
 
     OS:             MacOSX 10.15.6
