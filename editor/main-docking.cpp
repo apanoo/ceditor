@@ -30,7 +30,6 @@ void __reset_window() {
 }
 
 extern "C" void EMSCRIPTEN_KEEPALIVE set_window_size() {
-  std::cout << "set....." << std::endl;
   // get size from js
   __reset_window();
 
