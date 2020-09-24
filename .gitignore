@@ -13,3 +13,4 @@ build/
 cmake-build-debug/
 .idea/
 imgui_log.txt
+bin-backup

@@ -51,17 +51,23 @@ set(spdlogDir "${projectDir}/thirdparty/spdlog")
 set(imguiDir "${projectDir}/thirdparty/imgui")
 set(trayDir "${projectDir}/thirdparty/tray")
 set(imguiDocking "${projectDir}/thirdparty/imgui-docking")
+set(enttDir "${projectDir}/thirdparty/entt")
+set(enttEditorDir "${projectDir}/thirdparty/imgui_entt_entity_editor")
 add_subdirectory(${sdlDir} EXCLUDE_FROM_ALL)
 add_subdirectory(${gladDir})
 add_subdirectory(${spdlogDir})
 add_subdirectory(${imguiDir})
 add_subdirectory(${imguiDocking})
+add_subdirectory(${enttDir})
+add_subdirectory(${enttEditorDir})
 set(SDL2MAIN_LIBRARY SDL2main)
 set(SDL2_LIBRARY SDL2)
 set(GLAD_LIBRARY glad)
 set(SPDLOG_LIBRARY spdlog)
 set(IMGUI_LIBRARY imgui)
 set(IMGUI_DOCKING imgui-docking)
+set(ENTT_LIBRARY EnTT)
+set(ENTT_EDITOR_LIBRARY imgui_entt_entity_editor)
 
 
 # Joysticks were causing trouble on android.
@@ -71,19 +77,15 @@ add_definitions(-DSDL_JOYSTICK=0)
 # Sources (relative to the project root dir).
 #
 set(projectSources
-  editor/main-docking.cpp
-  editor/imgui_demo.cpp
-  editor/plot/implot.cpp
-  editor/plot/implot_items.cpp
+  entt/main.cpp
+  entt/imgui_demo.cpp
+  entt/systems/velocity.cpp
 
   # log
   core/logger/log.cpp
   # imgui
   core/2d/gui/imgui_impl_opengl3.cpp
   core/2d/gui/imgui_impl_sdl.cpp
-
-  # Use this instead for an opengl example
-  #source/main_opengl.c
 )
 
 # Include dirs.
@@ -98,6 +100,7 @@ set(projectIncludeDirs ${projectIncludeDirs}
   # "${imguiDir}"
   "${imguiDocking}"
   # "${trayDir}"
+  "${enttDir/single_include}"
 )
 
 message("     Sources: ${projectSources}\n")
@@ -142,6 +145,8 @@ target_link_libraries(${targetName}
   ${SPDLOG_LIBRARY}
   # ${IMGUI_LIBRARY}
   ${IMGUI_DOCKING}
+  ${ENTT_LIBRARY}
+  ${ENTT_EDITOR_LIBRARY}
 )
 
 target_include_directories(${targetName}
